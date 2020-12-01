@@ -1,0 +1,2496 @@
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{mathtools} % allows for boxes on equations and subequations 
+\usepackage{caption}
+\usepackage{epstopdf}
+\usepackage{tabularx}
+\usepackage{Pgfplots}
+\usepackage[normalem]{ulem}
+\usepackage[]{mcode}
+\usepackage{gensymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{calc,patterns,decorations.pathmorphing,decorations.markings}
+\usepackage{xfrac}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Coursework\ \#1}
+\newcommand{\hmwkDueDate}{Friday,\ December\ 9$^{th}$,\ 2016}
+\newcommand{\hmwkClass}{EN3057}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Dr\ CE\ Ugalde-Loo}
+\newcommand{\hmwkAuthorName}{Jamie\ D.\ Lake}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\ (\hmwkClassInstructor): \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{3}    % ARE SECTIONS CONSIDERED SUBSECTIONS? OR... {?}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \subsection{\homeworkProblemName}%   ARE HOMEWORK PROBLEMS CONSIDERED SECTIONS/SUBSECTIONS??
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1] %
+  {\noindent\fbox
+  	{\begin{minipage}[c]{\columnwidth}#1
+  \end{minipage}}}%
+
+
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsubsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}\vspace{3in}}
+\date{}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\numberwithin{equation}{subsection}
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\newpage
+% Uncomment the \tableofcontents and \newpage lines to get a Contents page
+% Uncomment the \setcounter line as well if you do NOT want subsections
+%       listed in Contents
+\setcounter{tocdepth}{2}
+\tableofcontents
+\hfill \break \hfill \break 
+\textbf{Note: I have used the symbol $\times$ (multiplication sign) to denote the multiplication of non-vector/scalar quantities - despite its prohibition in the introduction. Hopefully, you agree that the use of the sign does not cause confusion in the places that I have used it. Equations \ref{eq:1.1cltfworking} and \ref{eq:1.1efunc} are much more readable with a multiplication sign.}\\~\\
+\textbf{Note: I have included the feedback form at the end of this document, I hope you don't mind it being in a different style!}
+
+\newpage
+
+% When problems are long, it may be desirable to put a \newpage or a
+% \clearpage before each homeworkProblem environment
+
+\clearpage
+
+\section{Section 1 - Control System Design using Frequency Response}
+\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}]
+Consider a closed loop system (as shown in Figure \ref{fig:1.1feedback}). The controller provides a proportional control action $K(s) = k$. If the process transfer function is given by $G(s)$ as:
+
+\begin{equation} \label{eq:1.1transfunc}
+G(s)=\frac{4(s+3)}{(s+1)(s+2)(s+6)} 
+\end{equation}
+\\
+
+\begin{figure}[h]
+
+\centering
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+\tikzstyle{dummy} = [coordinate]
+
+% The block diagram code is probably more verbose than necessary
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    % We start by placing the blocks
+    \node [input, name=input] {};
+    \node [sum, right of=input] (sum) {};
+    \node [block, right of=sum] (controller) {$K(s)$};
+    \node [block, right of=controller, node distance=3cm] (system) {$G(s)$};
+    % We draw an edge between the controller and system block to 
+    % calculate the coordinate u. We need it to place the measurement block. 
+    \draw [->] (controller) -- node[name=u] {$U(s)$} (system);
+    \node [output, right of=system] (output) {};
+    \draw [right] (output) node [name=yt] {$Y(s)$}(output);
+    \node [dummy,below of=u] (measurements) {};
+\node [dummy,right of=output] (yt) {};
+
+    % Once the nodes are placed, connecting them is easy. 
+    \draw [left] (input) node [name=rt] {$R(s)$};
+    \draw [draw,->] (input) -- (sum);
+    \draw [->] (sum) -- node {$E(s)$} (controller);
+    \draw [->] (system) -- node [name=y] {}(output);
+    \draw [-] (y) |- (measurements);
+
+    \draw [->] (measurements) -| node[pos=0.99] {$-$} node[pos=1.13] {$+$} node [near end] {$ $} (sum);
+\end{tikzpicture}
+\caption{Feedback system for section 1.} \label{fig:1.1feedback}
+\end{figure}
+
+\begin{homeworkSection}{(a)}
+Calculate the steady-state error for a unit step input.
+
+\newsavebox{\codeboxa}% For storing code in a box
+\begin{lrbox}{\codeboxa}
+\begin{lstlisting}
+>> syms s k;
+t=limit(((s+1)*(s+2)*(s+6))/((s+1)*(s+2)*(s+6)+4*k*(s+3)),s,0);
+simplify(t)	% output
+ 
+ans =
+ 
+1/(k + 1)
+ 
+\end{lstlisting}
+\end{lrbox}
+
+
+
+
+
+\sectionAnswer{
+In order to find the steady-state error, it is not entirely necessary to find the closed-loop transfer function, but it can be helpful and serve as a sanity check because it will provide us with information about the type of the system. We therefore find the closed-loop transfer function. This involves some simple block diagram reduction and then some algebraic manipulation using $G(s)$, as in Equation \ref{eq:1.1transfunc}.
+
+\begin{center}
+
+
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+\tikzstyle{dummy} = [coordinate]
+
+% The block diagram code is probably more verbose than necessary
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    % We start by placing the blocks
+    \node [input, name=input] {};
+    \node [sum, right of=input] (sum) {};
+    \node [block, right of=sum, node distance=2.5cm] (combine) {$K(s) G(s)$};
+    % We draw an edge between the controller and system block to 
+    % calculate the coordinate u. We need it to place the measurement block. 
+    \node [output, right of=combine, node distance = 3cm] (output) {};
+    \node [dummy,below of=u] (measurements) {};
+    \node [dummy,right of=y] (yt) {};
+
+    % Once the nodes are placed, connecting them is easy. 
+    \draw [left] (input) node [name=rt] {$R(s)$};
+    \draw [draw,->] (input) -- (sum);
+    \draw [->] (sum) -- node {$E(s)$} (combine);
+    \draw [->] (combine) -- node [name=y] {}(output);
+    \draw [right] (output) -- node [name=yt] {$Y(s)$}(output);
+    \draw [-] (y) |- (measurements);
+    \draw [->] (measurements) -| node[pos=0.99] {$-$} node[pos=1.13] {$+$} node [near end] {$ $} (sum);
+\end{tikzpicture}
+\\~\\
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    % We start by placing the blocks
+    \node [input, name=input] {$R(s)$};
+    \node [block, right of=input, node distance=3cm] (combine) {$\cfrac{K(s)G(s)}{1+K(s)G(s)}$};
+    % We draw an edge between the controller and system block to 
+    % calculate the coordinate u. We need it to place the measurement block. 
+    \node [output, right of=combine, node distance = 3cm] (output) {};
+    \node [dummy,below of=u] (measurements) {};
+    \node [dummy,right of=y] (yt) {};
+    \node [dummy,left of=input] (rt) {};
+
+    % Once the nodes are placed, connecting them is easy. 
+    \draw [left] (input) node [name=rt] {$R(s)$};
+    \draw [draw,->] (input) -- (combine);
+    \draw [->] (sum) -- (combine);
+    \draw [->] (combine) -- node [name=y] {}(output);
+    \draw [right] (output) -- node [name=yt] {$Y(s)$}(output);
+\end{tikzpicture}
+
+
+
+\captionof{figure}{Block diagram simplification}
+  \label{fig:simpl1}
+\end{center}
+
+}
+\sectionAnswer{
+After further simplification, a transfer function, $P(s)$, is arrived at, as shown in Equation \ref{eq:1.1cltf}. Note that I have related the inputs and outputs to their Laplacian equivalencies ($\mathcal{L}[y(t)]=Y(s)$ and $\mathcal{L}[r(t)]=R(s)$).
+
+\begin{equation} \label{eq:1.1cltf}
+P(s) \equiv \frac{Y(s)}{R(s)}=\frac{K(s)G(s)}{1+K(s)G(s)}
+\end{equation}
+
+Substituting in given expressions for $K(s)$ and $G(s)$:
+
+\begin{equation}  \label{eq:1.1cltfworking}
+\begin{split}
+Y(s) &=\frac{k \times \frac{4(s+3)}{(s+1)(s+2)(s+6)}}{1+ k \times \frac{4(s+3)}{(s+1)(s+2)(s+6)}} \times R(s) \\ 
+Y(s)  &= \frac{4k(s+3)}{(s+1)(s+2)(s+6)+ 4k(s+3)} \times R(s) \equiv \frac{4k(s+3)}{4ks+12k+s^3+9s^2+20s+12} \times R(s)
+\end{split}
+\end{equation}
+
+From here, it is clear that we are dealing with a type 0 system, so we know our steady-state error formula will be something like, $\frac{1}{1+k_{p}}$, where $K_p$ is a Static Position Error Constant. This is because there is a pole of multiplicity $N=0$ in the denominator of our closed-loop transfer function, $P(s)$ i.e. the denominator is all multiplied by $s^0$. It should be noted that for a step function: $R(s) = \sfrac{1}{s}$. With all of this in mind, we are able to proceed with our working.
+
+\begin{equation}  \label{eq:1.1efunc}
+\begin{split}
+E_c(s) &= \frac{1}{1+K(s)G(s)}\times R(s)\\
+&= \frac{1}{1+k\times \frac{4(s+3)}{(s+1)(s+2)(s+6)}}\times \frac{1}{s}\\
+&= \frac{(s+1)(s+2)(s+6)}{s\times [(s+1)(s+2)(s+6)+4k(s+3)]}
+\end{split}
+\end{equation}
+
+It is relatively easy to find the limit of this equation (as derived in Equation \ref{eq:1.1efunc}) using MATLAB (shown below Equation \ref{eq:1.1efuncmore}). 
+
+\begin{equation}  \label{eq:1.1efuncmore}
+\begin{split}
+e_c(\infty) = \lim_{s\to 0} sE_c(s) &= \lim_{s\to 0} s \left[ \frac{(s+1)(s+2)(s+6)}{s\times [(s+1)(s+2)(s+6)+4k(s+3)]}\right]\\
+&=  \lim_{s\to 0} \left[ \frac{(s+1)(s+2)(s+6)}{[(s+1)(s+2)(s+6)+4k(s+3)]}\right]\\
+&=  \frac{(2)(6)}{(2)(6)+4k(3)} = \frac{12}{12+12k}=\frac{1}{1+k}
+\end{split}
+\end{equation}
+
+
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxa}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+
+This finally leaves us with our assumption that the $e_{ss}$ for a type 0 system is:
+\begin{equation}\label{eq:1.1efuncfinal}
+e_{ss} = \frac{1}{1+k}
+\end{equation}
+
+}
+
+
+\end{homeworkSection}
+
+\begin{homeworkSection}{(b)}
+Modify controller $K(s)$ to achieve a steady-state error of zero for a unit step input. 
+
+\sectionAnswer{
+There are a number of ways to do this. Clearly, by making $k$ a scalar gain proportional controller the response is not really satisfactory for most applications due to the huge oscillations between the first second or so. This is really observable in Figure \ref{fig:1.1}. 
+
+
+\begin{center}
+\include{fig1.1}
+\captionof{figure}{Step Response for $P(s)$ Plot with $k$ as Scalar}
+  \label{fig:1.1}
+\end{center}
+
+This problem is overcome by introducing a $\sfrac{k}{s}$ term or an integral action (with proportional gain) term for $K(s)$. You can see that for the $k=\sfrac{1}{4s}$ plot of Figure \ref{fig:1.2}, the response time is greatly increased but the desired steady-state value is reached and there is almost no over-shoot. Graphically, it seems that an integral action seems to stabilise the system but we should verify this algebraically before settling on a solution. An algebraic solution for the stability of the system is quite difficult to come to for all of $k$ though, but it is possible to confirm that the steady state error, $e_{ss}$ is indeed equal to 0. First, a derivation of $E_c(s)$ is made as in Equation \ref{eq:1.2efunc}, this is then used to calculate the steady state error as in Equation \ref{eq:1.2efuncmore}.
+
+
+\begin{equation} \label{eq:1.2efunceq}
+E_c(s) = \frac{1}{1+K(s)G(s)}\times R(s)
+\end{equation}
+}
+\sectionAnswer{
+
+\begin{equation}  \label{eq:1.2efunc}
+\begin{split}
+E_c(s)&= \frac{1}{1+ \sfrac{k}{s} \times \frac{4(s+3)}{(s+1)(s+2)(s+6)}}\times \frac{1}{s}\\
+&= \frac{s\times[(s+1)(s+2)(s+6)]}{s\times [(s+1)(s+2)(s+6)]+4k \times(s+3)}
+\end{split}
+\end{equation}
+
+\begin{equation}  \label{eq:1.2efuncmore}
+\begin{split}
+E_c(s) &= \frac{s\times[(s+1)(s+2)(s+6)]}{s\times [(s+1)(s+2)(s+6)]+4k \times(s+3)}\\
+e_c(\infty) = \lim_{s\to 0} sE_c(s) &= \lim_{s\to 0} s \left[ \frac{s\times[(s+1)(s+2)(s+6)]}{s \times [(s+1)(s+2)(s+6)]+4k \times (s+3)}\right]\\
+&=  \lim_{s\to 0} \left[\frac{s^{2} \times[(s+1)(s+2)(s+6)]}{s \times [(s+1)(s+2)(s+6)]+4k \times (s+3)}\right]\\
+&=  \frac{0\times[(1)(2)(6)]}{0 \times [(1)(2)(6)]+12k} = \frac{0}{0+12k} \\
+& \therefore e_{ss} = 0
+\end{split}
+\end{equation}
+
+Graphically, this algebraic solution holds, as for varrying values of $k$, the steady state error is observably equal to 0. 
+
+
+
+It is also worth mentioning that there could be an improvement or an optimisation upon this system by possibly introducing a P-I controller of the type: $K(s) = k_1 + \sfrac{k_2}{s}$.
+
+
+\begin{center}
+\include{fig1.2}
+\captionof{figure}{Step Response for $P(s)$ Plot with $k$ as Integral Action}
+  \label{fig:1.2}
+\end{center}
+
+
+
+
+
+
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{(c)}
+Propose a controller that would ensure a steady-state error of 0.25 for a unit ramp input.
+
+
+\newsavebox{\codeboxb}% For storing code in a box
+\begin{lrbox}{\codeboxb}
+\begin{lstlisting}
+>> syms k s;
+k=4/s;
+t = ((s+1)*(s+2)*(s+6))/((4*k*(s+3)+(s+1)*(s+2)*(s+6))*s); 
+% t is an equivelant form of E_c(s)
+limit(t,s,0) % limit of t as s goes to 0 
+ 
+ans =
+ 
+1/4
+\end{lstlisting}
+\end{lrbox}
+
+\sectionAnswer{
+
+Procedurally, this is very similar to part (b). However, one should observe that for a ramp input $R(s) = \frac{1}{s^2}$. We are asked to find a value of $k$ which gives us an $e_{ss}= 0.25$. 
+
+
+
+Using Equation \ref{eq:1.1cltfworking} and keeping the value of $R(s)$ needed in mind, a closed loop representation of the system for a ramp input can be found, which is only here for completeness:
+\begin{equation}\label{eq:1.1ctrans}
+Y(s) = \frac{4k(s+3)}{4ks^3+12ks^2+s^5+9s^4+20s^3+12s^2}
+\end{equation}
+
+Reusing Equation \ref{eq:1.2efunceq}:
+
+\begin{equation*}
+\begin{split}
+E_c(s) &= \frac{1}{1+\frac{4k(s+3)}{(s+1)(s+2)(s+6)}} \times \frac{1}{s^2}\\
+E_c(s) &= \frac{(s+1)(s+2)(s+6)}{4k(s+3)+s^3+9s^2+20s+12} \times \frac{1}{s^2}
+\end{split}
+\end{equation*}
+
+Further work shows,
+
+\begin{equation*}
+\begin{split}
+e_c(\infty) = \lim_{s\to 0} sE_c(s) &= \lim_{s\to 0} s \left[ \frac{(s+1)(s+2)(s+6)}{(4k(s+3)+s^3+9s^2+20s+12)\times s^2}\right]\\
+&=  \lim_{s\to 0} \left[ \frac{(s+1)(s+2)(s+6)}{(4k(s+3)+s^3+9s^2+20s+12)\times s}\right]\\
+\end{split}
+\end{equation*}
+
+At this point, it's clear that the only thing that will bring the evaluation of the denominator back from zero, is $k = \frac{k_1}{s}$.
+
+\begin{equation*}
+\begin{split}
+0.25 &=  \lim_{s\to 0} \left[ \frac{(s+1)(s+2)(s+6)}{(\sfrac{4k_1}{s}(s+3)+(s+1)(s+2)(s+6))\times s}\right]\\
+0.25 &=  \lim_{s\to 0} \left[ \frac{(s+1)(s+2)(s+6)}{4k_1 (s+3)+(s)(s+1)(s+2)(s+6))}\right]\\
+0.25 &=  \frac{(1)(2)(6)}{4k_1(3)+(0)}\\
+\frac{1}{4} &=  \frac{1}{ k_1}\\
+& \therefore  k_1 = 4
+\end{split}
+\end{equation*}
+
+As a sanity check:
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxb}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+
+Therefore, it can be concluded that $K(s) = \sfrac{4}{s}$ provides a $e_{ss} = 0.25$.
+}
+
+
+
+\end{homeworkSection}
+
+
+
+\begin{homeworkSection}{(d)}
+Obtain the closed loop transfer function of the system using the controller obtained in part (c)
+\sectionAnswer{
+Using Equation \ref{eq:1.1ctrans} and substituting in $k=\frac{4}{s}$ and recalling that this is the representation of the system when a ramp input is used:
+
+\begin{equation} \label{eq:1.1dcl}
+\begin{split}
+\frac{Y(s)}{R(s)} &= \frac{4(\frac{4}{s})(s+3)\times s^2}{4 \frac{4}{s} s^3+12 \frac{4}{s} s^2+s^5+9s^4+20s^3+12s^2}\\
+&= \frac{16s+48}{s^4+9s^3+20s^2+28s+48}
+\end{split}
+\end{equation}
+
+
+}
+
+
+\end{homeworkSection}
+
+\begin{homeworkSection}{(e)}
+Using the Routh-Hurwitz stability criterion, show that the characteristic polynomial of the closed loop system is Hurwitz.
+
+\sectionAnswer{
+
+From Equation \ref{eq:1.1dcl} it is clear to see that the transfer functions is of the same form as given in  Equation \ref{eq:1.1estandard}.
+
+\begin{equation}\label{eq:1.1estandard}
+G(s) = \frac{N(s)}{D(s)} = \frac{b_0 s^m + b_1s^{m-1} + \cdots + b_{m-1}s + b_m}{a_0 s^n + a_1 s^{n-1} + \cdots + a_{n-1} s + a_n}
+\end{equation}
+
+The characteristic equation $\Delta (s)$ is obtained by equation $D(s)$ to zero.
+
+\begin{equation*}
+\Delta (s) = D(s) = s^4+9s^3+20s^2+28s+48 = 0
+\end{equation*}
+
+All coefficients are positive and the quadrinomial is complete i.e. there are no missing terms. The roots of the characteristic polynomial, as obtained form MATLAB are as given in Equation \ref{eq:1.1eroots}.
+
+\begin{equation}\label{eq:1.1eroots}
+\begin{split}
+s_1 &= -6.3615 \\
+s_2 &= -2.5415\\
+s_{3,4} &= -0.0485 \pm 1.7224j
+\end{split}
+\end{equation}
+
+The roots all lie in the LHP because their respective real parts are less than zero. The closed loop system is therefore Hurwitz. 
+
+For completeness, the Routh array could be constructed. It is expected to find that there are no changes in sign in the elements of the first column of the Routh array, thus verifying that the closed loop system is truly Hurwitz. 
+\begin{center}
+\begin{tabular}{c|ccc}
+$s^4$ & 1               & 20 & 48 \\
+$s^3$ & 9               & 28 & 0  \\
+$s^2$ & $\sfrac{152}{9}$ & 48 & 0  \\
+$s^1$ & $\sfrac{46}{19}$ & 0  & 0  \\
+$s^0$ & 48              & 0  & 0 
+\end{tabular}
+\captionof{table}{Routh array for a characteristic polynomial obtained in (d)}
+  \label{tab:1.1e}
+\end{center}
+
+
+}
+
+
+\end{homeworkSection}
+
+\begin{homeworkSection}{(f)}
+Use MATLAB to plot the closed loop step response of the system with the controller obtained for part (c).
+
+
+\newsavebox{\codeboxc}% For storing code in a box
+\begin{lrbox}{\codeboxc}
+\begin{lstlisting}
+>> n = [16 48]; d = [1 9 20 28 48];
+T = tf(n, d);
+step(T)
+matlab2tikz('fig1.3') % used to create a tikz file for use with LaTeX
+\end{lstlisting}
+\end{lrbox}
+
+
+\sectionAnswer{
+
+\begin{center}
+\include{fig1.3}
+\captionof{figure}{Step Response for $P(s)$ Plot with $k =\sfrac{4}{s}$ - Integral Action}
+  \label{fig:1.3}
+\end{center}
+
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxc}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+
+}
+
+
+\end{homeworkSection}
+\end{homeworkProblem}
+
+
+
+\newpage
+\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}]
+
+Although the controller obtained for Exercise 1(c) provied a zero steady-state error for a unit step input, the response is not acceptable for a practical control system. Such a poor response is a consequense of the low stability margins of the system. It is desired to upgrade the design with an additional compensator that achieves a better performance. 
+\begin{homeworkSection}{(a)}
+Use MATLAB to obtain the gain and phase margins of the open loop transfer function $K(s) G(s)$ with the controller obtained in Exercise 1(c). Show these results in a Bode plot. 
+
+\newsavebox{\codeboxd}% For storing code in a box
+\begin{lrbox}{\codeboxd}
+\begin{lstlisting}
+>> s = tf('s');
+OL = (4*(s+3)*4)/((s+1)*(s+2)*(s+6)*s); % here, G(s) is just multiplied by 4/s
+bode(OL)
+margin(OL)
+matlab2tikz('fig1.4') % used to create a tikz file for use with LaTeX
+\end{lstlisting}
+\end{lrbox}
+
+\sectionAnswer{
+
+\begin{center}
+\include{fig1.4}
+\captionof{figure}{Bode plot of an open loop transfer function, obtained by multiplying $K(s)$ and $G(s)$. Including Gain and Phase margins}
+  \label{fig:1.4}
+\end{center}
+
+
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxd}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{(b)}
+Design a phase lag compensator to increase the phase margin to at least 40$^{\circ}$.
+
+\sectionAnswer{
+
+\begin{center}
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+\tikzstyle{dummy} = [coordinate]
+
+% The block diagram code is probably more verbose than necessary
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    % We start by placing the blocks
+    \node [input, name=input] {};
+    \node [sum, right of=input] (sum) {};
+    \node [block, right of=sum] (phase) {$C(s)$};
+    \node [block, right of=phase, node distance=3cm] (controller) {$K(s)$};
+    \node [block, right of=controller, node distance=3cm] (system) {$G(s)$};
+    % We draw an edge between the controller and system block to 
+    % calculate the coordinate u. We need it to place the measurement block. 
+    \draw [->] (controller) -- (system);
+    \node [output, right of=system, node distance=2.5cm] (output) {};
+    \draw [right] (output) node [name=yt] {$Y(s)$}(output);
+    \node [dummy,below of=u] (measurements) {};
+\node [dummy,right of=output] (yt) {};
+
+    % Once the nodes are placed, connecting them is easy. 
+    \draw [left] (input) node [name=rt] {$R(s)$};
+    \draw [draw,->] (input) -- (sum);
+    \draw [->] (sum) -- node {$E(s)$} (phase);
+    \draw [->] (phase) -- (controller);
+    \draw [->] (system) -- node [name=y] {}(output);
+    \draw [-] (y) |- (measurements);
+
+    \draw [->] (measurements) -| node[pos=0.99] {$-$} node[pos=1.13] {$+$} node [near end] {$ $} (sum);
+\end{tikzpicture}
+
+
+\captionof{figure}{Block diagram - addition to Exercise 1(a) with a phase-lag compensator ($C(s)$)}
+  \label{fig:2.1block}
+\end{center}
+
+A phase-lag compensator can be represented by $C(s)$ as in Figure \ref{fig:2.1block} or by Equation \ref{eq:2.1phaselag}.
+\begin{equation}\label{eq:2.1phaselag}
+C(s) = \frac{1+\tau s}{1+\alpha \tau s}\text{ for } \alpha > 1
+\end{equation}
+
+$P_m$ has already been given in Figure \ref{fig:1.4} as 3.72$^{\circ}$. A small safety margin should be added to the desired phase margin to ensure the requirement is satisfied. Therefore, in actuality, a phase margin of 55$^{\circ}$ is required. The phase response of the compensated system at the cross over frequency should therefore be $-125^{\circ}$. 
+
+\begin{equation}\label{eq:2.2crossfreq}
+\phi(\omega_c) = -128^{\circ} \text{ where } \omega_c = 0.538 \text{ rad/s}
+\end{equation}
+
+At this frequency, the gain is 16.1 dB. Therefore, the compensator attenuation should be $\kappa = -16.1 \text{ dB.}$ Knowing this, the value of $\alpha$ can be determined from the equation for the attenuation factor, as in Equation \ref{eq:2.2attenuationfactor}
+
+\begin{equation}\label{eq:2.2attenuationfactor}
+\kappa = 20 \log_{10} \left( \frac{1}{\alpha}\right) \Leftrightarrow \alpha = 10^{\sfrac{- \kappa}{20}}
+\end{equation}
+
+This leaves $\alpha = 6.38263$. To ensure that the effects of the phase-lag compensator are negligible, it is advisable to place the corner frequency of the compensator at least a decade below the crossover frequency obtained in Equation \ref{eq:2.2crossfreq}. This leaves a $\omega_{\text{zero}} = 0.0538$ rad/s. 
+
+\begin{equation} \label{eq:2.2timeconst}
+\frac{1}{\tau} = \omega_{\text{zero}} \Leftrightarrow \tau = \frac{1}{\omega_{\text{zero}}}
+\end{equation}
+
+Using the relationship between $\omega_{\text{zero}}$ and $\tau$, it is possible to arrive at a value of $\tau = 18.59$. With the values of $\alpha$ and $\tau$ in mind, it is now possible to find the pole of the compensator using Equation \ref{eq:2.1phaselag}.
+
+\begin{equation*}
+C(s) = \frac{1+18.59s}{1+(6.38)(18.59)s} = \frac{1+18.59s}{1+118.6s}
+\end{equation*}
+
+Now, simplifying our block diagram:
+
+\begin{center}
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+\tikzstyle{dummy} = [coordinate]
+
+% The block diagram code is probably more verbose than necessary
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    % We start by placing the blocks
+    \node [input, name=input] {};
+    \node [block, right of=input, node distance=3cm] (system) {$C(s)K(s)G(s)$};
+    % We draw an edge between the controller and system block to 
+    % calculate the coordinate u. We need it to place the measurement block. 
+    \node [output, right of=system, node distance=3cm] (output) {};
+    \draw [right] (output) node [name=yt] {$Y(s)$}(output);
+\node [dummy,right of=output] (yt) {};
+
+    % Once the nodes are placed, connecting them is easy. 
+    \draw [left] (input) node [name=rt] {$R(s)$};
+    \draw [draw,->] (input) -- (system);
+    \draw [->] (system) -- node [name=y] {}(output);
+\end{tikzpicture}
+\captionof{figure}{Open-loop simplification of block diagram - addition to Exercise 1(a) with a phase-lag compensator ($C(s)$)}
+  \label{fig:2.1blocksimple}
+\end{center}
+
+We now have an open-loop transfer function as given in Equation \ref{eq:2.2oltf}.
+
+\begin{equation}\label{eq:2.2oltf}
+P(s)_{\text{ol}} = \frac{2.5079 (s+3)(s+0.05379)}{s(s+6)(s+2)(s+1)(s+0.008432)}
+\end{equation}
+}
+
+
+\newsavebox{\codeboxe}% For storing code in a box
+\begin{lrbox}{\codeboxe}
+\begin{lstlisting}
+s = tf('s');
+OL = (4*(s+3)*4)/((s+1)*(s+2)*(s+6)*s);
+OL = OL * ((1+18.59*s)/(1+118.6*s)); % OL x C(s)
+bode(OL)
+margin(OL)
+matlab2tikz('fig1.5') % used to create a tikz file for use with LaTeX
+\end{lstlisting}
+\end{lrbox}
+
+\newsavebox{\codeboxf}% For storing code in a box
+\begin{lrbox}{\codeboxf}
+\begin{lstlisting}
+s = tf('s');
+OL = (4*(s+3)*4)/((s+1)*(s+2)*(s+6)*s);
+OL = OL * ((1+18.59*s)/(1+118.6*s));
+CL = feedback(OL, 1); % closed-loop of C(s)K(s)G(s) 
+step(CL)
+matlab2tikz(`fig1.6') % used to create a tikz file for use with LaTeX
+\end{lstlisting}
+\end{lrbox}
+
+\newsavebox{\codeboxg}% For storing code in a box
+\begin{lrbox}{\codeboxg}
+\begin{lstlisting}
+s = tf('s');
+OL = (4*(s+3)*4)/((s+1)*(s+2)*(s+6)*s);
+OL = OL * ((1+18.59*s)/(1+118.6*s));
+CL = feedback(OL, 1); % closed-loop of C(s)K(s)G(s) 
+step(CL/s) % shortcut to obtain ramp... Step(s) = 1/s and 1/s * 1/s = 1/s^2 = Ramp(s)
+matlab2tikz(`fig1.7') % used to create a tikz file for use with LaTeX
+\end{lstlisting}
+\end{lrbox}
+
+\sectionAnswer{
+\begin{center}
+\include{fig1.5}
+\captionof{figure}{Open-loop Bode plot of system with a phase-lag compensator, obtained by multiplying $C(s)K(s)G(s)$. Including the Gain and Phase margins}
+  \label{fig:1.5}
+\end{center}
+
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxe}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+
+So, Figure \ref{fig:1.5} shows that $P_m \geq 40^{\circ}$. Out of interest, why not see what a closed-loop step response now looks like? See Figure \ref{fig:1.6}.
+}
+
+\sectionAnswer{
+
+\begin{center}
+\include{fig1.6}
+\captionof{figure}{Step plot for a closed loop system obtained from the open-loop transfer function in Equation \ref{eq:2.2oltf} with unity feedback}
+  \label{fig:1.6}
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxf}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+
+
+}
+
+\sectionAnswer{
+
+\begin{center}
+\include{fig1.7}
+\captionof{figure}{Ramp response plot for a closed loop system obtained from the open-loop transfer function in Equation \ref{eq:2.2oltf} with unity feedback}
+  \label{fig:1.7}
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxg}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+
+
+}
+\end{homeworkSection}
+\begin{homeworkSection}{(c)}
+Design a phase-lead compensator to increase the phase margin to at least 30$^{\circ}$
+
+
+\sectionAnswer{
+A phase-lead compensator can be represented again by $C(s)$ as in Figure \ref{fig:2.1block} or by Equation \ref{eq:2.2phaselead}, where the is an important distinction to be made from \label{eq:2.1phaselag}.
+
+\begin{equation}\label{eq:2.2phaselead}
+C(s) = \frac{1+\tau s}{1+\alpha \tau s}\text{ for } \alpha < 1
+\end{equation}
+
+$P_m$ is again given as 3.72$^{\circ}$ as given in Figure \ref{fig:1.4}. It is necessary to determine the phase lead, $\phi_{\text{max}}$. 
+
+\begin{equation}\label{eq:2.2phimax}
+\phi_{\text{max}} = (P_{m\text{,req}} - P_m) + 15^{\circ}
+\end{equation}
+}
+
+\sectionAnswer{
+Using Equation \ref{eq:2.2phimax} it is possible to see that $\phi_{\text{max}} = 41.28^{\circ}$, where $15^{\circ}$ is a safety margin applied to counter the shift effect of the compensator. $\alpha$ can be equated to $\phi_{\text{max}}$ by the relationship shown in Equation \ref{eq:2.2alpha}.
+
+\begin{equation}\label{eq:2.2alpha}
+\alpha = \frac{1-\sin \phi_{\text{max}}}{1+ \sin \phi_{\text{max}}}
+\end{equation}
+
+This relationship gives us an $\alpha = 0.205$. Finding the compensator gain, $|C(j\omega_{\text{max}})|$ at $\omega_{\text{max}}$ is given by a relationship shown in Equation \ref{eq:2.2compgainlin}.
+
+\begin{equation}\label{eq:2.2compgainlin}
+|C(j\omega_{\text{max}})| = \frac{1}{\sqrt{\alpha}}
+\end{equation}
+
+For dB values, Equation \ref{eq:2.2compgainlin} turns into Equation \ref{eq:2.2compgaindB}.
+
+\begin{equation}\label{eq:2.2compgaindB}
+|C(j\omega_{\text{max}})|  = 20 \log_{10}\left( \frac{1}{\sqrt{\alpha}} \right)
+\end{equation}
+
+This leaves $|C(j\omega_{\text{max}})|= 15.8$ dB. The frequency at this value of magnitude is ($\omega_{\text{max}} =$) 3.875 rad/s. This frequency will be the new crossover frequency for the compensated network. To find the frequency of the maximum phase point, Equation \ref{eq:2.2maxphasepoint}
+
+\begin{equation}\label{eq:2.2maxphasepoint}
+\omega_{\text{max}} = \frac{1}{\tau \sqrt{\alpha}} \Leftrightarrow \tau = \frac{1}{\omega_{\text{max}} \sqrt{\alpha}}
+\end{equation}
+
+From Equation \ref{eq:2.2maxphasepoint} a value of $\tau = 0.57$ s. With the above parameters in mind, it is possible to derive an equation to represent the phase-lead compensator using Equation \ref{eq:2.2phaselead}.
+
+\begin{equation*}
+C(s) = \frac{1+ 0.57s}{1+0.117s}
+\end{equation*}
+
+This leaves an open loop transfer function as shown in Equation \ref{eq:2.3oltf}.
+
+\begin{equation}\label{eq:2.3oltf}
+P(s)_{\text{ol}} = \frac{77.949(s+3)(s+1.754)}{s(s+8.547)(s+6)(s+2)(s+1)}
+\end{equation}
+}
+
+\newsavebox{\codeboxh}% For storing code in a box
+\begin{lrbox}{\codeboxh}
+\begin{lstlisting}
+s = tf('s');
+OL = (4*(s+3)*4)/((s+1)*(s+2)*(s+6)*s);
+OL = OL * (1+0.57*s)/(1+0.117*s); % OL x C(s)
+bode(OL)
+margin(OL)
+matlab2tikz('fig1.8') % used to create a tikz file for use with LaTeX
+\end{lstlisting}
+\end{lrbox}
+
+\newsavebox{\codeboxi}% For storing code in a box
+\begin{lrbox}{\codeboxi}
+\begin{lstlisting}
+s = tf('s');
+OL = (4*(s+3)*4)/((s+1)*(s+2)*(s+6)*s);
+OL = OL * (1+0.57*s)/(1+0.117*s); % OL x C(s)
+CL= feedback(OL,1);
+step(CL)
+matlab2tikz('fig1.9') % used to create a tikz file for use with LaTeX
+\end{lstlisting}
+\end{lrbox}
+
+\newsavebox{\codeboxj}% For storing code in a box
+\begin{lrbox}{\codeboxj}
+\begin{lstlisting}
+s = tf('s');
+OL = (4*(s+3)*4)/((s+1)*(s+2)*(s+6)*s);
+OL = OL * (1+0.57*s)/(1+0.117*s); % OL x C(s)
+CL= feedback(OL,1);
+step(CL/s)
+matlab2tikz('fig2.0') % used to create a tikz file for use with LaTeX
+\end{lstlisting}
+\end{lrbox}
+
+\sectionAnswer{
+\begin{center}
+\include{fig1.8}
+\captionof{figure}{Open-loop Bode plot of system with a phase-lead compensator, obtained by multiplying $C(s)K(s)G(s)$. Including the Gain and Phase margins}
+  \label{fig:1.8}
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxh}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+So, Figure \ref{fig:1.8} shows that $P_m \geq 30^{\circ}$. 
+}
+
+\sectionAnswer{
+\begin{center}
+\include{fig1.9}
+\captionof{figure}{Step plot for a closed loop system obtained from $C(s)K(s)G(s)$ with unity feedback}
+  \label{fig:1.9}
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxi}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+
+}
+
+
+\sectionAnswer{
+\begin{center}
+\include{fig2.0}
+\captionof{figure}{Ramp response plot for a closed loop system obtained from $C(s)K(s)G(s)$ with unity feedback}
+  \label{fig:2.0}
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxj}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{(d)}
+Use MATLAB to plot the open loop frequency response (Bode plot) showing the effects of the lag and lead compensators. Include the gain and phase margins.
+\sectionAnswer{
+See Figures \ref{fig:1.5} and \ref{fig:1.8}.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{(e)}
+Use MATLAB to plot the step response of the compensated closed loop systems.
+\sectionAnswer{
+See Figures \ref{fig:1.6} and \ref{fig:1.9}.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{(f)}
+Use MATLAB to plot the ramp response of the compensated closed loop systems. Restrict your plots to the first 20 seconds only (or less). 
+\sectionAnswer{
+See Figures \ref{fig:1.7} and \ref{fig:2.0}.
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+
+\section{Section 2 - State-space Modelling}
+\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}]
+
+
+
+Consider a block of mass $m$ mounted on a massles cart, as shown in Figure \ref{fig:3.1mechsys}. The system is modelled through the differential equation shown in Equation \ref{eq:3.1mechsys}.
+
+\begin{equation}\label{eq:3.1mechsys}
+m\frac{d^2 y(t)}{dt^2} + b\frac{dy(t)}{dt}+ky(t) = b\frac{du(t)}{dt} + ku(t)
+\end{equation}
+\begin{center}
+
+\begin{tikzpicture}[scale=1.3, every node/.style={scale=1.3}]
+\tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.3cm,post length=0.3cm,segment length=6}]
+\tikzstyle{damper}=[thick,decoration={markings,  
+  mark connection node=dmp,
+  mark=at position 0.5 with 
+  {
+    \node (dmp) [thick,inner sep=0pt,transform shape,rotate=-90,minimum width=15pt,minimum height=3pt,draw=none] {};
+    \draw [thick] ($(dmp.north east)+(2pt,0)$) -- (dmp.south east) -- (dmp.south west) -- ($(dmp.north west)+(2pt,0)$);
+    \draw [thick] ($(dmp.north)+(0,-5pt)$) -- ($(dmp.north)+(0,5pt)$);
+  }
+}, decorate]
+\tikzstyle{ground}=[fill,pattern=north east lines,draw=none,minimum width=0.75cm,minimum height=0.3cm,inner sep=0pt,outer sep=0pt]
+
+\node [draw, outer sep=0pt, thick] (M) [minimum width=1cm, minimum height=2.5cm] {$m$};
+
+\node (ground) [ground,anchor=north,yshift=-0.25cm,minimum width=5.6cm,xshift=-0.03cm] at (M.south) {};
+\draw (ground.north east) -- (ground.north west);
+\draw (ground.south east) -- (ground.south west);
+\draw (ground.north east) -- (ground.south east);
+
+%\node (ground) [anchor=north,yshift=-0.25cm,minimum width=5.6cm,xshift=-0.03cm] at (M.south) {};
+
+\node (fill) [ground,xshift=-0.15cm,minimum height = 0.3cm, minimum width = 0.3cm] at (ground.west) {};
+\draw (fill.north west) -- (fill.south west);
+\draw (fill.south west) -- (fill.south east);
+
+\draw [thick, fill=white] (M.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
+\draw [thick, fill=white!100] (M.south west) ++ (2.5cm,-0.625cm) circle (0.25cm)  (M.south east) ++ (-2.5cm,-0.625cm) circle (0.25cm);
+\node (wall) [ground, rotate=-90, minimum width=3cm,anchor=south east] at (fill.north west) {};
+\draw (wall.north east) -- (wall.north west);
+\draw (wall.north west) -- (wall.south west);
+\draw (wall.south west) -- (wall.south east);
+
+%\node (wall) [rotate=-90, minimum width=3cm,yshift=-3cm] {};
+
+%\draw[pattern=north east lines ] (wall.south west)|-(ground.south east)|-(wall.north east)|- cycle;
+
+\node (y) at (M.east) [xshift = 1.2cm] {$y$};
+
+\draw [spring] (wall.170) -- ($(M.north west)!(wall.170)!(M.south west)$);
+\draw [damper] (wall.10) -- ($(M.north west)!(wall.10)!(M.south west)$);
+
+\draw [-latex,ultra thick] (M.east) ++ (0cm,0cm) -- +(1cm,0cm);
+\node (b) at (wall.10) [xshift = 1.2cm,yshift=0.55cm] {$b$};
+\node (k) at (wall.170) [xshift = 1.2cm,yshift=0.35cm] {$k$};
+
+\draw [-latex,ultra thick] (M.east) ++ (0cm,0cm) -- +(1cm,0cm);
+\draw [-latex,ultra thick] (wall.north west) ++ (0cm, 0.5cm) -- +(1cm,0cm);
+\draw [dashed] (wall.north west) ++ (0cm, 0cm) -- +(0cm,0.8cm);
+\node (u) at (wall.north west) [xshift = 1.2cm, yshift = 0.5cm] {$u$};
+\end{tikzpicture}
+\captionof{figure}{Block diagram of a simple mechanical system, analagous to a mass on a cart. Represented mathematically by Equation \ref{eq:3.1mechsys}}
+  \label{fig:3.1mechsys}
+\end{center}
+\noindent
+\begin{homeworkSection}{(a)}
+Determine the transfer function $G(s) = \sfrac{Y(s)}{U(s)}$.
+
+\sectionAnswer{
+It is not stated, but an assumption will be made that all initial conditions are zero. Taking the Laplace transform of the equation modelling the system ($\mathcal{L}$[Equation \ref{eq:3.1mechsys}]) yields Equation \ref{eq:3.1mechsyslap}.
+
+\begin{equation}\label{eq:3.1mechsyslap}
+\begin{split}
+ms^2 Y(s) + b s Y(s) + ks &= bs U(s) + kU(s) \\
+Y(s) [ms^2 + bs+k] &= U(s)[bs+k]\\
+G(s) = \frac{Y(s)}{U(s)} &= \frac{bs+k}{ms^2 + bs+k}
+\end{split}
+\end{equation}
+
+}
+
+
+
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{(b)}
+
+Use the transfer function obtained in 3(a) to obtain a state-space representation of the system.
+
+\sectionAnswer{
+The transfer function for the system was obtained in Equation \ref{eq:3.1mechsyslap}. Comparing Equation \ref{eq:3.1mechsyslap} to the transfer function standard form (Equation \ref{eq:1.1estandard} but for $n=m$) it can be observed that:
+\begin{equation}
+a_n = \sfrac{k}{m} \text{ and }a_{n-1} = \sfrac{b}{m}
+\end{equation}
+
+With this small amount of knowledge it is possible to obtain part of the controllable Canonical form, as in Equation \ref{eq:contcan}.
+\begin{equation*}
+\text{Modified standard form: }
+\begin{bmatrix}
+   \dot{x_1}(t) \\ \dot{x_n}(t)
+\end{bmatrix} =
+\begin{bmatrix}
+   0 & 1 \\ 
+   -a_n & -a_{n-1}
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1(t)} \\ {x_n(t)}
+\end{bmatrix} +
+\begin{bmatrix}
+   {0} \\ {1}
+\end{bmatrix} u(t)
+\end{equation*}
+
+\begin{equation}\label{eq:contcan}
+\begin{bmatrix}
+   \dot{x_1}(t) \\ \dot{x_2}(t)
+\end{bmatrix}
+=
+\begin{bmatrix}
+   0 & 1 \\ 
+   -\sfrac{k}{m} & -\sfrac{b}{m}
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1(t)} \\ {x_2(t)}
+\end{bmatrix}
++
+\begin{bmatrix}
+   {0} \\ {1}
+\end{bmatrix}
+u(t)
+\end{equation}
+
+\begin{equation*}
+a_n = \sfrac{k}{m} \text{, }b_n = \sfrac{k}{m} \text{, } a_1 = \sfrac{b}{m}\text{, } b_1 =\sfrac{b}{m} \text{ and } b_0 = 0 \text{ ($\because$ G(s) is strictly proper)}
+\end{equation*}
+With this information in mind, it is possible to complete the controllable Canonical form.
+\begin{equation*}
+\text{Modified standard form: }
+y(t) =
+\begin{bmatrix}
+   (b_n - a_n b_0) & (b_1-a_1 b_0)
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1(t)} \\ {x_n(t)}
+\end{bmatrix} + b_0 u(t)
+\end{equation*}
+
+\begin{equation}\label{eq:contcan2}
+y(t) =
+\begin{bmatrix}
+  \sfrac{k}{m} & \sfrac{b}{m}
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1(t)} \\ {x_n(t)}
+\end{bmatrix}
+\end{equation}
+
+Taking Equations \ref{eq:contcan} and \ref{eq:contcan2} into consideration, \textbf{one} state-space representation of $G(s)$ is complete, in controllable Canonical form. There are an infinite number of these. Matrices $\mathbf{A}$ (system), $\mathbf{B}$ (control), $\mathbf{C}$ (output) and $\mathbf{D}$ (feedforward) are given below.
+
+\begin{equation*}
+\mathbf{A} = 
+\begin{bmatrix}
+   0 & 1 \\ 
+   -\sfrac{k}{m} & -\sfrac{b}{m}
+\end{bmatrix}
+\text{, }
+\mathbf{B} = 
+\begin{bmatrix}
+   {0} \\ {1}
+\end{bmatrix}\text{, }
+\mathbf{C} = 
+\begin{bmatrix}
+  \sfrac{k}{m} & \sfrac{b}{m}
+\end{bmatrix}
+\text{, }
+\mathbf{D} = 0
+\end{equation*}
+
+}
+
+\end{homeworkSection}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}]
+Consider a system represented by the following differential equations:
+\begin{equation*}
+Ri_1(t) + L_1 \frac{di_1(t)}{dt}+v(t) = v_a(t)
+\end{equation*}
+\begin{equation*}
+L_2 \frac{di_2(t)}{dt}+v(t) = v_b(t)
+\end{equation*}
+\begin{equation*}
+i_1(t) + i_2(t) = C\frac{dv(t)}{dt}
+\end{equation*}
+In this system, $R$, $L_1$, $L_2$ and $C$ are given constants, and $v_a(t)$ and $v_b(t)$ are inputs. Let the state variables be defined as $x_1(t) = i_1(t)$, $x_2(t) = i_2(t)$, and $x_3(t) = v(t)$. Obtain a state-space representation of the system where the output is $y(t)=x_3(t)$. Notice the system has two inputs and one output. 
+\sectionAnswer{
+The equations given in the question can be rewritten as in the below equations.
+\begin{equation*}
+Rx_1(t) + L_1 \frac{dx_1(t)}{dt}+x_3(t) = v_a(t)
+\end{equation*}
+\begin{equation*}
+L_2 \frac{dx_2(t)}{dt}+x_3(t) = v_b(t)
+\end{equation*}
+\begin{equation*}
+x_1(t) + x_2(t) = C\frac{dx_3(t)}{dt}
+\end{equation*}
+In terms of the required states, the above equations can be rewritten as below.
+\begin{equation*}
+\frac{dx_1(t)}{dt} = \frac{1}{L_1}v_a(t)-\frac{R}{L_1}x_1(t) -\frac{1}{L_1}x_3(t)
+\end{equation*}
+\begin{equation*}
+\frac{dx_2(t)}{dt} = \frac{1}{L_2}v_b(t)-\frac{1}{L_2}x_3(t)
+\end{equation*}
+\begin{equation*}
+\frac{dx_3(t)}{dt} = \frac{1}{C}x_1(t) + \frac{1}{C}x_2(t)
+\end{equation*}
+From here, it is very easy to obtain \textbf{one} state-space representation of the system.
+
+\begin{equation*}
+\begin{bmatrix}
+   \dot{x_1}(t) \\ \dot{x_2}(t) \\ \dot{x_3}(t)
+\end{bmatrix} =
+\begin{bmatrix}
+   -\sfrac{R}{L_1} & 0 & -\sfrac{1}{L_1} \\ 
+   0 & 0 & -\sfrac{1}{L_2} \\ 
+      \sfrac{1}{C} & \sfrac{1}{C} & 0 
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1(t)} \\ {x_2(t)} \\ {x_3(t)}
+\end{bmatrix} +
+\begin{bmatrix}
+   \sfrac{1}{L_1} & 0 \\ 
+   0 & \sfrac{1}{L_2} \\ 
+     0 & 0 
+\end{bmatrix}
+\begin{bmatrix}
+   v_a \\  v_b
+\end{bmatrix}
+\end{equation*}
+
+\begin{equation*}
+y = 
+\begin{bmatrix}
+   0 &  0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+   x_1(t) \\ x_2(t) \\ x_3(t)
+\end{bmatrix}
+\end{equation*}
+
+
+\begin{equation*}
+\mathbf{A} = 
+\begin{bmatrix}
+   -\sfrac{R}{L_1} & 0 & -\sfrac{1}{L_1} \\ 
+   0 & 0 & -\sfrac{1}{L_2} \\ 
+      \sfrac{1}{C} & \sfrac{1}{C} & 0 
+\end{bmatrix}
+\text{, }
+\mathbf{B} = 
+\begin{bmatrix}
+   \sfrac{1}{L_1} & 0 \\ 
+   0 & \sfrac{1}{L_2} \\ 
+     0 & 0 
+\end{bmatrix}\text{, }
+\mathbf{C} = 
+\begin{bmatrix}
+   0 &  0 & 1
+\end{bmatrix}
+\text{, }
+\mathbf{D} = 0
+\end{equation*}
+
+
+}
+
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}]
+
+A system is described by:
+\begin{equation*}
+\frac{d\mathbf{x}}{dt}=
+\begin{bmatrix}
+   2 & -1\\
+   3 & -5
+\end{bmatrix}\mathbf{x}+
+\begin{bmatrix}
+1 \\ 2 
+\end{bmatrix}
+u
+\end{equation*}
+\begin{equation*}
+y=
+\begin{bmatrix}
+   1 & -1
+\end{bmatrix}\mathbf{x}
+\end{equation*}
+\noindent
+Determine the transfer function $G(s) = \sfrac{Y(s)}{U(s)}$.
+\sectionAnswer{
+It is possible to represent the matrix components of the state-space representation individually to simplify things.
+
+\begin{equation}\label{eq:3.3abcd}
+\mathbf{A} = 
+\begin{bmatrix}
+   2 & -1\\
+   3 & -5
+\end{bmatrix}
+\text{, }
+\mathbf{B} = 
+\begin{bmatrix}
+1 \\ 2 
+\end{bmatrix}
+\text{, }
+\mathbf{C} = 
+\begin{bmatrix}
+   1 & -1
+\end{bmatrix}
+\text{, }
+\mathbf{D} = 0
+\end{equation}
+
+The transfer function of a system can be represented in terms of these matrices,  $\mathbf{A}$, $\mathbf{B}$, $\mathbf{C}$ and $\mathbf{D}$.
+\begin{equation}\label{eq:3.3transfuncabcd}
+G(s) = \mathbf{C}(s\mathbf{I} - \mathbf{A})^{-1}\mathbf{B}+\mathbf{D}
+\end{equation}
+}
+\sectionAnswer{
+Using the values of  $\mathbf{A}$, $\mathbf{B}$, $\mathbf{C}$ and $\mathbf{D}$ obtained in Equation \ref{eq:3.3abcd} and substituting them into Equation \ref{eq:3.3transfuncabcd}, it is possible to obtain a system representation as in Equation \ref{eq:3.3ss2tf}.
+
+\begin{subequations}
+\begin{align}\label{eq:3.3ss2tf}
+%%%%%%%%
+G(s) &= \begin{bmatrix}
+   1 & -1
+\end{bmatrix}
+\left(s
+\begin{bmatrix}
+   1 & 0 \\ 0 & 1
+\end{bmatrix}
+-
+\begin{bmatrix}
+   2 & -1\\
+   3 & -5
+\end{bmatrix}\right)^{-1}
+\begin{bmatrix}
+1 \\ 2 
+\end{bmatrix}
++\begin{bmatrix}
+0
+\end{bmatrix}
+\\
+%%%%%%%%
+&=  \begin{bmatrix}
+   1 & -1
+\end{bmatrix}
+\begin{bmatrix}
+  s-2 & 1\\
+   -3 & s+5
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+1 \\ 2 
+\end{bmatrix}\\
+%%%%%%%
+ &= \begin{bmatrix}
+   1 & -1
+\end{bmatrix}\left(
+\frac{1}{(s-2)(s+5)+3}
+\begin{bmatrix}
+  s+5 & -1\\
+   3 & s-2
+\end{bmatrix}\right)
+\begin{bmatrix}
+1 \\ 2 
+\end{bmatrix}
+%%%%%%%
+\\
+ &= \begin{bmatrix}
+   1 & -1
+\end{bmatrix}
+\frac{1}{(s-2)(s+5)+3}
+\begin{bmatrix}
+  s+5 & -1\\
+   3 & s-2
+\end{bmatrix}
+\begin{bmatrix}
+1 \\ 2 
+\end{bmatrix}
+%%%%%%%
+\\
+ &= \begin{bmatrix}
+   1 & -1
+\end{bmatrix}
+\frac{1}{(s-2)(s+5)+3}
+\begin{bmatrix}
+  (s+5)+(2)(-1)\\
+   3+2(s-2)
+\end{bmatrix}
+%%%%%%%
+\\
+ &= \frac{1}{(s-2)(s+5)+3}
+\begin{bmatrix}
+1 &-1
+\end{bmatrix}
+\begin{bmatrix}
+  s+3\\
+   2s-1
+\end{bmatrix}\\
+%%%%%%%%
+ &= \frac{1}{(s-2)(s+5)+3}
+\begin{bmatrix}
+4-s
+\end{bmatrix}\\
+%%%%%%%%
+ &= \frac{-s+4}{s^2 +3s -7}
+\end{align}
+\end{subequations}
+}
+
+
+\end{homeworkProblem}
+
+
+
+\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}]
+A system has the following transfer function representation:
+\begin{equation*}
+Q(s) = \frac{s^2 + 2s}{s^2(s^2+3s+4)}
+\end{equation*}
+Derive a state-space model for the system.
+\sectionAnswer{
+
+$Q(s)$ can be alternatively represented as in Equation \ref{eq:3.4qs}.
+
+\begin{equation}\label{eq:3.4qs}
+Q(s) = \frac{s^2 + 2s + 0}{s^4 + 3s^3 + 4s^2 + 0s +0}
+\end{equation}
+
+Compare this transfer function to the universal transfer function, which is reprinted in Equation \ref{eq:3.4tfst}.
+\begin{equation}\label{eq:3.4tfst}
+G(s) = \frac{Y(s)}{U(s)} = \frac{b_0 s^n + b_1 s^{n-1} + \cdots + b_{n-1}s+b_n}{s^n + a_1 s^{n-1} + \cdots + a_{n-1} s + a_n}
+\end{equation}
+}
+
+
+\newsavebox{\codeboxk}% For storing code in a box
+\begin{lrbox}{\codeboxk}
+\begin{lstlisting}
+>> A = [0 1 0 0; 0 0 1 0; 0 0 0 1; 0 0 -4 -3];
+B = [0;0;0;1];
+C = [0 2 1 0];
+D = [0];
+[n,d] = ss2tf(A,B,C,D)
+
+
+n =
+
+     0     0     1     2     0
+
+
+d =
+
+    1.0000    3.0000    4.0000         0         0
+\end{lstlisting}
+\end{lrbox}
+
+
+
+\sectionAnswer{
+The controllable Canonical state-space representation takes a form shown in Equation \ref{eq:3.4sscan}.
+\begin{subequations}\label{eq:3.4sscan}
+\begin{align}
+\begin{bmatrix}
+\dot{x_1}(t) \\ \dot{x_2}(t) \\ \vdots \\ \dot{x_{n-1}}(t) \\ \dot{x_n}(t)
+\end{bmatrix}
+&=
+\begin{bmatrix}
+0 & 1 & 0 &\cdots & 0 \\ 0 & 0 & 1 & \cdots & 0 \\ \vdots & \vdots & \vdots & & \vdots \\ 0 &0&0&\cdots&1 \\ -a_n & -a_{n-1} & -a_{n-2} & \cdots & -a_1
+\end{bmatrix}
+\begin{bmatrix}
+{x_1}(t) \\ {x_2}(t) \\ \vdots \\ {x_{n-1}}(t) \\ {x_n}(t)
+\end{bmatrix}+
+\begin{bmatrix}
+0\\ 0 \\ \vdots \\ 0 \\ 1
+\end{bmatrix}u(t)\\
+y(t) &=  
+\begin{bmatrix}
+b_n-a_nb_0 & b_{n-1}-a_{n-1}b_0 & \cdots & b_1-a_1b_0
+\end{bmatrix}
+\begin{bmatrix}
+{x_1}(t) \\ {x_2}(t) \\ \vdots \\ {x_n}(t)
+\end{bmatrix}+b_0u(t)
+\end{align}
+\end{subequations}
+
+Comparing the transfer function given in Equation \ref{eq:3.4qs} with Equation \ref{eq:3.4tfst}, the coefficients of the various orders of $s$ can be observed and used to populated the matrices given in Equation \ref{eq:3.4sscan}. This leaves one state-space representation for $Q(s)$ as in Equation \ref{eq:3.4done}.
+
+\begin{subequations}\label{eq:3.4done}
+\begin{align}
+\begin{bmatrix}
+\dot{x_1}(t) \\ \dot{x_2}(t) \\ \dot{x_{3}}(t) \\ \dot{x_4}(t)
+\end{bmatrix}
+&=
+\begin{bmatrix}
+0 & 1 & 0 & 0 \\ 0 & 0 & 1& 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & -4 & -3
+\end{bmatrix}
+\begin{bmatrix}
+{x_1}(t) \\ {x_2}(t) \\ {x_3}(t) \\ {x_4}(t)
+\end{bmatrix}+
+\begin{bmatrix}
+0\\ 0 \\ 0 \\ 1
+\end{bmatrix}u(t)\\
+y(t) &=  
+\begin{bmatrix}
+0 & 2 & 1& 0
+\end{bmatrix}
+\begin{bmatrix}
+{x_1}(t) \\ {x_2}(t) \\ x_3(t) \\ {x_4}(t)
+\end{bmatrix}
+\end{align}
+\end{subequations}
+
+Just for fun, this can be tested using MATLAB.
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxk}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+And, the coefficients of the polynomial given as \texttt{n} and \texttt{d} match the Equation of $Q(s)$ given in Equation \ref{eq:3.4qs}.
+}
+\end{homeworkProblem}
+
+
+
+\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}]
+Consider the system shown in Figure \ref{fig:3.5mechsys}. The equations modelling the system are shown below, as in Equations \ref{eq:3.5mechsys}.
+
+\begin{equation}\label{eq:3.5mechsys}
+\begin{split}
+m_1 \frac{d^2 y_1(t)}{dt^2} + b\frac{dy_1(t)}{dt} + k[y_1(t)-y_2(t)]&=0\\
+m_2 \frac{d^2y_2(t)}{dt^2} + k[y_2(t) -y_1(t)] &= u(t)
+\end{split}
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={scale=1.3}]
+\tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.3cm,post length=0.3cm,segment length=6}]
+\tikzstyle{damper}=[thick,decoration={markings,  
+  mark connection node=dmp,
+  mark=at position 0.5 with 
+  {
+    \node (dmp) [thick,inner sep=0pt,transform shape,rotate=-90,minimum width=15pt,minimum height=3pt,draw=none] {};
+    \draw [thick] ($(dmp.north east)+(2pt,0)$) -- (dmp.south east) -- (dmp.south west) -- ($(dmp.north west)+(2pt,0)$);
+    \draw [thick] ($(dmp.north)+(0,-5pt)$) -- ($(dmp.north)+(0,5pt)$);
+  }
+}, decorate]
+\tikzstyle{ground}=[fill,pattern=north east lines,draw=none,minimum width=0.75cm,minimum height=0.3cm,inner sep=0pt,outer sep=0pt]
+%draw masses
+\node [draw, outer sep=0pt, thick] (M) [minimum width=2cm, minimum height=1.5cm] {$m_1$};
+\node [draw, outer sep=0pt, thick] (M2) [minimum width=2cm, minimum height=1.5cm, xshift = 4cm] {$m_2$};
+% draw wheels on m1
+\draw [thick, fill=white] (M2.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M2.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
+% draw the ground 
+\node (ground) [ground,anchor=north,yshift=-0.225cm,minimum width=10cm,xshift=2.03cm] at (M.south) {};
+\draw (ground.north east) -- (ground.north west);
+\draw (ground.south east) -- (ground.south west);
+\draw (ground.north east) -- (ground.south east);
+% draw fill nodes
+\node (fill) [ground,xshift=-0.15cm,minimum height = 0.3cm, minimum width = 0.3cm] at (ground.west) {};
+\draw (fill.north west) -- (fill.south west);
+\draw (fill.south west) -- (fill.south east);
+%draw spring and wheels on m2
+\draw [spring] (M.east) -- (M2.west);
+\draw [thick, fill=white] (M.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
+% draw wall and give border
+\node (wall) [ground, rotate=-90, minimum width=3cm,anchor=south east] at (fill.north west) {};
+\draw (wall.north east) -- (wall.north west);
+\draw (wall.north west) -- (wall.south west);
+\draw (wall.south west) -- (wall.south east);
+% draw damper 
+\draw [damper] (wall.15) -- ($(M.north west)!(wall.15)!(M.south west)$);
+% damper and spring labels
+\node (b) at (wall.15) [xshift = 1cm,yshift=0.55cm] {$b$};
+\node (k) at (wall.15) [xshift = 4.85cm,yshift=0.35cm] {$k$};
+%arrows and labels for inputs/outputs
+\draw [-latex,ultra thick] (M2.east) ++ (0cm,0cm) -- +(1cm,0cm);
+\draw [-latex,ultra thick] (M.north east) ++ (0cm, 0.5cm) -- +(1cm,0cm);
+\draw [dashed] (M.north east) ++ (0cm, 0cm) -- +(0cm,0.8cm);
+\node (y1) at (M.north east) [xshift = 1.2cm, yshift = 0.5cm] {$y_1$};
+\draw [-latex,ultra thick] (M2.north east) ++ (0cm, 0.5cm) -- +(1cm,0cm);
+\draw [dashed] (M2.north east) ++ (0cm, 0cm) -- +(0cm,0.8cm);
+\node (y1) at (M2.north east) [xshift = 1.2cm, yshift = 0.5cm] {$y_2$};
+\node (y1) at (M2.east) [xshift = 1.05cm] {$u$};
+\end{tikzpicture}
+\captionof{figure}{Masses-damper-spring system for Exercise 7. Represented mathematically by Equation \ref{eq:3.5mechsys}}
+  \label{fig:3.5mechsys}
+\end{center}
+
+
+\noindent
+Obtain a state-space representation if the output variables are $y_1(t)$ and $y_2(t)$. Notice that the system has one input and two outputs. 
+\sectionAnswer{
+The state variables can be defined as in Equation \ref{eq:3.5statevars}. By rearranging Equations \ref{eq:3.5mechsys} for the derivatives and substituting in the state variables, the set of equations shown below (Equations \ref{eq:3.5step1}) can be obtained. 
+\begin{equation}\label{eq:3.5statevars}
+\begin{split}
+x_1 &= y_1\\ 
+x_2 &= \sfrac{dy_1}{dt}\\
+x_3 &= y_2\\
+x_4 &= \sfrac{dy_2}{dt}
+\end{split}
+\end{equation}
+
+\begin{equation}\label{eq:3.5step1}
+\begin{split}
+\frac{dx_1}{dt}&=x_2\\
+\frac{dx_2}{dt}&= -\frac{b}{m_1}\frac{dy_1}{dt}-\frac{k}{m_1} (y_1-y_2)\\
+\frac{dx_3}{dt}&= x_4\\
+\frac{dx_4}{dt}&=-\frac{k}{m_2}(y_2-y_1)+\frac{u}{m_2}
+\end{split}
+\end{equation}
+
+
+It is possible to further simplify Equations \ref{eq:3.5step1}. The final form of these equations is shown in \ref{eq:3.5step2}. From \ref{eq:3.5step2} the equations can then be expressed in matrix form, as in \ref{eq:3.5done}.
+
+\begin{equation}\label{eq:3.5step2}
+\begin{split}
+\frac{dx_1}{dt}&=x_2\\
+\frac{dx_2}{dt}&= -\frac{k}{m_1}x_1 - \frac{b}{m_1}x_2 + \frac{k}{m_1}x_3\\
+\frac{dx_3}{dt}&= x_4\\
+\frac{dx_4}{dt}&=\frac{1}{m_2}u + \frac{k}{m_2}x_1 - \frac{k}{m_2} x_3 
+\end{split}
+\end{equation}
+}
+\sectionAnswer{
+\begin{equation}\label{eq:3.5done}
+\begin{bmatrix}
+\dot{x_1}(t) \\ \dot{x_2}(t) \\ \dot{x_{3}}(t) \\ \dot{x_4}(t)
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 1 & 0 & 0 \\ -\sfrac{k}{m_1} & -\sfrac{b}{m_1} & \sfrac{k}{m_1} & 0 \\ 0 & 0 & 0 & 1 \\ \sfrac{k}{m_2} & 0 & -\sfrac{k}{m_2} & 0
+\end{bmatrix}
+\begin{bmatrix}
+{x_1}(t) \\ {x_2}(t) \\ {x_3}(t) \\ {x_4}(t)
+\end{bmatrix}+
+\begin{bmatrix}
+0\\ 0 \\ 0 \\ \sfrac{1}{m_2}
+\end{bmatrix}u(t)
+\end{equation}
+
+From Equations \ref{eq:3.5step1}, particularly paying attention to $x_1 = y_1$ and $x_3=y_2$, it is possible to now derive the output equation as in Equation \ref{eq:3.5outeq}
+
+\begin{equation}\label{eq:3.5outeq}
+\begin{bmatrix}
+y_1 \\ y_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 & 0 & 0\\ 0 & 0 & 1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ x_4
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}\label{eq:3.5abcd}
+\mathbf{A} = 
+\begin{bmatrix}
+0 & 1 & 0 & 0 \\ -\sfrac{k}{m_1} & -\sfrac{b}{m_1} & \sfrac{k}{m_1} & 0 \\ 0 & 0 & 0 & 1 \\ \sfrac{k}{m_2} & 0 & -\sfrac{k}{m_2} & 0
+\end{bmatrix}
+\text{, }
+\mathbf{B} = 
+\begin{bmatrix}
+0\\ 0 \\ 0 \\ \sfrac{1}{m_2}
+\end{bmatrix}
+\text{, }
+\mathbf{C} = 
+\begin{bmatrix}
+1 & 0 & 0 & 0\\ 0 & 0 & 1 & 0
+\end{bmatrix}
+\text{, }
+\mathbf{D} = 0
+\end{equation}
+}
+
+
+\end{homeworkProblem}
+
+\section{Section 3 - Design in State-Space}
+\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}]
+The system shown in Figure \ref{fig:4.1blocksimple} has a transfer function $G(s)$ given as in Equation \ref{eq:4.1eq}.
+
+\begin{equation}\label{eq:4.1eq}
+G(s) = \frac{4}{(s+1)(s+2)^2}
+\end{equation}
+This SISO system has a state-space representation, as given below in Equation \ref{eq:4.1ssequations}.
+\begin{equation}\label{eq:4.1ssequations}
+\begin{split}
+\frac{d\mathbf{x}(t)}{dt} = \mathbf{Ax}(t) + \mathbf{B}u(t)\\
+y(t) = \mathbf{Cx}(t) + \mathbf{D}u(t)
+\end{split}
+\end{equation}
+
+\begin{center}
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+\tikzstyle{dummy} = [coordinate]
+
+% The block diagram code is probably more verbose than necessary
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+	    % We start by placing the blocks
+	    \node [input, name=input] {};
+	    \node [block, right of=input, node distance=3cm] (system) {$G(s)$};
+	    % We draw an edge between the controller and system block to 
+	    % calculate the coordinate u. We need it to place the measurement block. 
+	    \node [output, right of=system, node distance=3cm] (output) {};
+	    \draw [right] (output) node [name=yt] {$y(t)$}(output);
+	    \node [dummy,right of=output] (yt) {};
+	    % Once the nodes are placed, connecting them is easy. 
+	    \draw [left] (input) node [name=rt] {$u(t)$};
+	    \draw [draw,->] (input) -- (system);
+	    \draw [->] (system) -- node [name=y] {}(output);
+\end{tikzpicture}
+\captionof{figure}{Simple system for Exercise 8}
+  \label{fig:4.1blocksimple}
+\end{center}
+
+\newsavebox{\codeboxl}% For storing code in a box
+\begin{lrbox}{\codeboxl}
+\begin{lstlisting}
+>> A = [0 1 0; 0 0 1; -4 -8 -5]; 
+B = [0; 0; 1]; 
+C = [4 0 0]; D = [0]; 
+K = [36 30 6];
+sysnoK = ss(A, B, C, D);
+sysK = ss(A-B*K,B,C,D);
+sysK_gain = ss(A-B*K,10*B,C,D);
+step(sysnoK)
+hold % assuming you have not already got a figure held
+step(sysK)
+step(sysK_gain)
+\end{lstlisting}
+\end{lrbox}
+
+\newsavebox{\codeboxm}% For storing code in a box
+\begin{lrbox}{\codeboxm}
+\begin{lstlisting}
+>> syms s;
+limit(((4*s)/((s^3 + 11*s^2 + 38*s + 40)*s)),s,0,'right')
+ 
+ans =
+ 
+1/10
+
+\end{lstlisting}
+\end{lrbox}
+
+\begin{homeworkSection}{(a)}
+
+Find matrices $\mathbf{A}$, $\mathbf{B}$, $\mathbf{C}$, and $\mathbf{D}$. Construct the characteristic polynomial of $\mathbf{A}$. Verify that the eigenvalues of $\mathbf{A}$ are the poles of G(s). 
+\sectionAnswer{
+Using Equations \ref{eq:3.4sscan} it is possible to derive the Canonical state-space representation for the system defined by the transfer function, as in Equation \ref{eq:4.1eq}.
+
+\begin{subequations}\label{eq:4.1done}
+\begin{align}
+\begin{bmatrix}
+\dot{x_1}(t) \\ \dot{x_2}(t) \\ \dot{x_{3}}(t) 
+\end{bmatrix}
+&=
+\begin{bmatrix}
+0 & 1 & 0 \\ 0 & 0 & 1 \\  -4 & -8 & -5 
+\end{bmatrix}
+\begin{bmatrix}
+{x_1}(t) \\ {x_2}(t) \\ {x_3}(t) 
+\end{bmatrix}+
+\begin{bmatrix}
+0\\ 0 \\ 1
+\end{bmatrix}u(t)\\
+y(t) &=  
+\begin{bmatrix}
+4 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+{x_1}(t) \\ {x_2}(t) \\ x_3(t) 
+\end{bmatrix}
+\end{align}
+\end{subequations}
+
+\begin{equation}\label{eq:4.1abcd}
+\mathbf{A} = 
+\begin{bmatrix}
+0 & 1 & 0 \\ 0 & 0 & 1 \\  -4 & -8 & -5 
+\end{bmatrix}
+\text{, }
+\mathbf{B} = 
+\begin{bmatrix}
+0\\ 0 \\ 1
+\end{bmatrix}
+\text{, }
+\mathbf{C} = 
+\begin{bmatrix}
+4 & 0 & 0
+\end{bmatrix}
+\text{, }
+\mathbf{D} = 0
+\end{equation}
+
+The characteristic polynomial of $\mathbf{A}$ is given by Equation \ref{eq:4.1char}.
+
+\begin{equation}\label{eq:4.1char}
+\Delta (s) = \text{det}(s\mathbf{I} - \mathbf{A}) = |s\mathbf{I} - \mathbf{A}| = 0
+\end{equation}
+
+This characteristic polynomial is given in Equation \ref{eq:4.1charpoly}.
+
+\begin{equation}\label{eq:4.1charpoly}
+\begin{split}
+\Delta(s) &= \left| s 
+\begin{bmatrix}
+1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1
+\end{bmatrix}-
+\begin{bmatrix}
+0 & 1 & 0 \\ 0 & 0 & 1 \\  -4 & -8 & -5 
+\end{bmatrix}\right| = 0\\
+& = \left|
+\begin{matrix}
+s & -1 & 0 \\ 0 & s & -1 \\ 4 & 8 & s+5
+\end{matrix}\right| = 0\\
+& = s \left[(s)(s+5) - (-1)(8)\right] - (-1)\left[-(-1)(4)\right] + (0)\left[(\dots)\right] = 0\\
+& = 
+s^3 + 5s^2 + 8s + 4 = 0 
+\end{split}
+\end{equation}
+
+The Eigenvalues of matrix $\mathbf{A}$ will be given by the roots of the characteristic polynomial, $\Delta(s)$ given in Equation \ref{eq:4.1charpoly}. To verify that the poles of $G(s)$ (i.e. the roots of  $(s+1)(s+2)^2 = 0$) are the same as the Eigenvalues of $\mathbf{A}$, the two polynomials should be equal. This is shown in Equation \ref{eq:4.1same?}. No further work is needed here, clearly the roots of these two polynomials will be the same, because they \textit{\textbf{are the same}} polynomial. 
+
+\begin{equation}\label{eq:4.1same?}
+\begin{split}
+(s+1)(s+2)^2 & \stackrel{?}{=} s^3 + 5s^2 + 8s + 4\\
+(s+1)(s+2)^2 & \stackrel{?}{=} (s+1)(s^2+4x+4)\\
+(s+1)(s+2)^2 & = (s+1)(s+2)^2
+\end{split}
+\end{equation}
+}
+
+\end{homeworkSection}
+\begin{homeworkSection}{(b)}
+Verify that the system is controllable.
+\sectionAnswer{
+The system's controllability is analysed through the controllability matrix, $\mathbf{M}_c$. When this matrix has full-rank, that is to say, $\text{det}(\mathbf{M}_c) \neq 0$, the system can be said to be controllable. 
+
+}
+
+\sectionAnswer{
+The controllability matrix,  $\mathbf{M}_c$, is given by Equation \ref{eq:4.1mc}.
+
+\begin{equation}\label{eq:4.1mc}
+\mathbf{M}_c = 
+\begin{bmatrix}
+\mathbf{B} &  \mathbf{AB} & \mathbf{A}^2 \mathbf{B}
+\end{bmatrix}
+\end{equation}
+
+So, some matrix calculations are needed to simplify the calculation of $\mathbf{M}_c$.
+
+\begin{equation*}
+\mathbf{AB} = \begin{bmatrix}
+0 & 1 & 0 \\ 0 & 0 & 1 \\  -4 & -8 & -5 
+\end{bmatrix}
+\begin{bmatrix}
+0\\ 0 \\ 1
+\end{bmatrix}=\begin{bmatrix}
+0 \\ 1 \\ -5
+\end{bmatrix}
+\end{equation*}
+
+\begin{equation*}
+\begin{split}
+\mathbf{A}^2 \mathbf{B} = \mathbf{A}(\mathbf{AB}) &= 
+\begin{bmatrix}
+0 & 1 & 0 \\ 0 & 0 & 1 \\  -4 & -8 & -5 
+\end{bmatrix}\left(
+\begin{bmatrix}
+0 & 1 & 0 \\ 0 & 0 & 1 \\  -4 & -8 & -5 
+\end{bmatrix}
+\begin{bmatrix}
+0\\ 0 \\ 1
+\end{bmatrix}\right)\\
+& = 
+\begin{bmatrix}
+0 & 1 & 0 \\ 0 & 0 & 1 \\  -4 & -8 & -5 
+\end{bmatrix}
+\begin{bmatrix}
+0 \\ 1 \\ -5
+\end{bmatrix}\\
+& = \begin{bmatrix}
+1 \\ -5 \\ 17
+\end{bmatrix}
+\end{split}
+\end{equation*}
+
+Therefore, $\mathbf{M}_c$ becomes obtainable, as in Equation \ref{eq:4.1mcfinal}. Next, the determinant of $\mathbf{M}_c$ can be found, as in Equation \ref{eq:4.1mcdet}. From this result, the system is determined to be controllable.
+
+\begin{equation}\label{eq:4.1mcfinal}
+\mathbf{M}_c = \begin{bmatrix}
+0 & 0 & 1 \\
+0 & 1 & -5 \\
+1 & -5 & 17 
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}\label{eq:4.1mcdet}
+\text{det}(\mathbf{M}_c) = (1) \left| \begin{matrix}
+0 & 1  \\
+1 & -5 
+\end{matrix}\right| = -1
+\end{equation}
+
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{(c)}
+Calculate a state feedback vector $\mathbf{K}$ that will move the poles of the system to $s_1 = -2$, $s_2 = -4$ and $s_3 = -5$. Calculate the amplification factor for the input pre-scaler. 
+
+\sectionAnswer{
+Introducing state feedback into the system will modify Equation \ref{eq:4.1ssequations} to become Equation \ref{eq:4.1mod}, where $\mathbf{K} = \begin{bmatrix}k_1 & k_2 & k_3\end{bmatrix}$.
+\begin{equation}\label{eq:4.1mod}
+\begin{split}
+\frac{d\mathbf{x}(t)}{dt} &= \mathbf{Ax}(t) + \mathbf{B}\left[ u(t) - \mathbf{Kx}(t)\right]\\
+& = (\mathbf{A} -\mathbf{BK}) \mathbf{x}(t) + \mathbf{B}u(t)
+\end{split}
+\end{equation}
+
+The poles, $s_1$, $s_2$ and $s_3$ will now be the Eigenvalues of $\mathbf{A} - \mathbf{BK}$. Hence, the characteristic equation given by Equation \ref{eq:4.1charpoly} becomes as in Equation \ref{eq:4.1charpolymod}.
+
+\begin{equation}\label{eq:4.1charpolymod}
+\Delta_K(s) = \text{det}\left[s \mathbf{I}-(\mathbf{A} - \mathbf{BK} ) \right]= \left| s\mathbf{I} - \mathbf{A} + \mathbf{BK}\right| = 0 
+\end{equation}
+
+Working this through numerically,
+}
+
+\sectionAnswer{
+\begin{equation*}
+\begin{split}
+\Delta_K(s) &= \left| s \begin{bmatrix}
+1 & 0 & 0\\ 0 & 1 & 0 \\ 0 & 0 & 1
+\end{bmatrix}
+-
+\begin{bmatrix}
+0 & 1 & 0 \\ 0 & 0 & 1 \\  -4 & -8 & -5 
+\end{bmatrix}+
+\begin{bmatrix}
+0\\ 0 \\ 1
+\end{bmatrix}
+\begin{bmatrix}
+k_1 & k_2 & k_3
+\end{bmatrix}\right| \\
+&= \left| \begin{bmatrix}
+s & -1 & 0 \\
+0 & s & -1 \\
+4 & 8 & s+5 
+\end{bmatrix}+
+\begin{bmatrix}
+0 & 0 & 0 \\ 
+0 & 0 & 0 \\
+k_1 & k_2 & k_3
+\end{bmatrix}\right| \\
+&= \left| \begin{matrix}
+s & -1 & 0 \\
+0 & s & -1 \\
+k_1 + 4 & k_2 + 8 & k_3 + s+5 
+\end{matrix}
+\right| \\
+& = s [s(k_3 + s +5) + (k_2+8)] + (k_1+4)\\
+& = s^3 + 5s^2 + k_3s^2 + 8s + k_2s + 4 + k_1\\
+& = s^3 + s^2 (5+k_3) +s(8 +k_2) + 4 + k_1
+\end{split}
+\end{equation*}
+
+Note that the poles can be represented as a factorised product, $(s_1 + 2)(s_2 + 4)(s_3 + 5)=0$. Therefore, in order to place the poles at these places, an equality is given as in Equation \ref{eq:4.1equalitygiven}.
+
+\begin{equation}\label{eq:4.1equalitygiven}
+\begin{split}
+s^3 + s^2 (5+k_3) + s(8 +k_2) + 4 + k_1 &= (s_1 + 2)(s_2 + 4)(s_3 + 5)\\
+s^3 + s^2 (5+k_3) + s(8 +k_2) + 4 + k_1 &= s^3 + 11s + 38s + 40
+\end{split}
+\end{equation}
+
+Comparing coefficients, as in Equation \ref{eq:4.1coeff}, it is possible to obtains solutions for $k_1$, $k_2$ and $k_3$.
+\begin{subequations}\label{eq:4.1coeff}
+\begin{align}
+5+k_3 &= 11\\
+\Aboxed{\therefore k_3 & = 6}\\
+8+k_2 & = 38\\
+\Aboxed{\therefore k_2 &= 30}\\
+4+k_1 & = 40\\
+\Aboxed{\therefore k_1 &= 36}
+\end{align}
+\end{subequations}
+
+With this knowledge, it is now possible to populate the state feedback gain matrix, $\mathbf{K}$ with its respective values.
+
+\begin{equation*}
+\mathbf{K} = \begin{bmatrix}
+36 & 30 & 6
+\end{bmatrix}
+\end{equation*}
+
+There are now essentially, two systems. One system is defined by $\mathbf{A}$, $\mathbf{B}$, $\mathbf{C}$, and $\mathbf{D}$ and another is defined by $\mathbf{A}^*$, $\mathbf{B}$, $\mathbf{C}$, and $\mathbf{D}$, where $\mathbf{A}^* = \mathbf{A}-\mathbf{BK}$. $\mathbf{A}^*$ is calculated in Equation \ref{eq:4.1anew}.
+
+\begin{equation}\label{eq:4.1anew}
+\mathbf{A}^* = \begin{bmatrix}
+0 & 1 &0\\ 0 & 0 & 1 \\ -40 & -38 & -11
+\end{bmatrix}
+\end{equation}
+
+With this new matrix in mind, it is possible to obtain the transfer function of this new state-space represented system. The transfer function of a system can be represented in terms of these matrices, $\mathbf{A^*}$, $\mathbf{B}$, $\mathbf{C}$, and $\mathbf{D}$, as in Equation \ref{eq:3.3transfuncabcd}. Noticing of course, that for this example, $\mathbf{A}$ of Equation  \ref{eq:3.3transfuncabcd} is substituted as $\mathbf{A^*}$, as in Equation \ref{eq:4.1anew}.
+}
+
+\sectionAnswer{
+
+Representing $\mathbf{A^*}$, $\mathbf{B}$, $\mathbf{C}$, and $\mathbf{D}$ as a transfer function, will provide Equation \ref{eq:4.1ss2tfnew}.
+
+\begin{equation}\label{eq:4.1ss2tfnew}
+G^*(s) = \frac{4}{s^3 + 11s^2 + 38s + 40}
+\end{equation}
+
+It is now possible to apply the final value theorem (as in Equation \ref{eq:4.1fvt}) to $G^*(s)$. For a step input, the final value of $G^*(s)$ can be shown to be 0.1. 
+
+\begin{equation}\label{eq:4.1fvt}
+\lim_{t \to \infty} g^*(t) = \lim_{s \to 0} s G^*(s)
+\end{equation}
+
+Assuming the input to $G^*(s)$ is a step input i.e. $U(s) = \sfrac{1}{s}$, yields:
+
+\begin{equation*}
+G^*(s) = \frac{4}{(s^3 + 11s^2 + 38s + 40)(s)}
+\end{equation*}
+
+Applying the final value theorem: 
+
+\begin{equation*}
+\begin{split}
+\lim_{s \to 0} s G^*(s) &= \lim_{s \to 0}\frac{4(s)}{(s^3 + 11s^2 + 38s + 40)(s)}\\
+&= \lim_{s \to 0}\frac{4}{(s^3 + 11s^2 + 38s + 40)}\\
+&= \frac{4}{((0)^3 + 11(0)^2 + 38(0) + 40)}\\
+&=\frac{4}{40}\\
+&= 0.1
+\end{split}
+\end{equation*}
+
+This is verifiable with MATLAB. 
+
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxm}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+
+Clearly, a final value of 0.1 is not what is required from the system. Therefore, an amplification factor is necessary. This amplification factor is 10. Let $G^*(s)$ now be the SISO transfer function for the system with state feedback, but also including an amplification factor. It can now be represented in state space.
+
+\begin{equation*}
+\mathbf{A^*} = 
+\begin{bmatrix}
+0 & 1 &0\\ 0 & 0 & 1 \\ -40 & -38 & -11
+\end{bmatrix}
+\text{, }
+\mathbf{B^*} = 
+10 \begin{bmatrix}
+0\\ 0 \\ 1
+\end{bmatrix}
+\text{, }
+\mathbf{C} = 
+\begin{bmatrix}
+4 & 0 & 0
+\end{bmatrix}
+\text{, }
+\mathbf{D} = 0
+\end{equation*}
+
+}
+
+
+\end{homeworkSection}
+
+
+
+\begin{homeworkSection}{(d)}
+Use MATLAB to plot the superimposed graphs of the step responses before and after applying the state feedback $\mathbf{K}$.
+
+\sectionAnswer{
+\begin{center}
+\include{fig2.1}
+\captionof{figure}{Step Response for $P(s)$ Plot with $k$ as Scalar}
+  \label{fig:2.1}
+\end{center}
+
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxl}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+}
+
+
+\end{homeworkSection}
+
+\begin{homeworkSection}{(e)}
+Verify that the system is observable.
+\sectionAnswer{
+The system will be observable if the observability matrix, $\mathbf{M}_O$ has full-rank. That is to say, $\text{det}(\mathbf{M_O}) \neq 0$. For this system, an observability matrix is derived as in Equation \ref{eq:4.1observmat}.
+
+\begin{equation}\label{eq:4.1observmat}
+\mathbf{M}_O = \begin{bmatrix}
+\mathbf{C} \\
+\mathbf{CA} \\
+\mathbf{CA}^2
+\end{bmatrix}
+\end{equation}
+
+}
+\sectionAnswer{
+So, some matrix calculations are needed to simplify the calculation of $\mathbf{M}_O$. 
+\begin{equation*}
+\begin{split}
+\mathbf{CA} &= \begin{bmatrix}
+4 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+0 & 1 & 0 \\ 0 & 0 & 1 \\  -4 & -8 & -5 
+\end{bmatrix}\\
+& = \begin{bmatrix}
+0 & 4 & 0 
+\end{bmatrix}\\
+\mathbf{CA}^2 &= (\mathbf{CA})\mathbf{A} = \begin{bmatrix}
+0 & 4 & 0 
+\end{bmatrix}
+\begin{bmatrix}
+0 & 1 & 0 \\ 0 & 0 & 1 \\  -4 & -8 & -5 
+\end{bmatrix}\\
+& = \begin{bmatrix}
+0 & 0 & 4
+\end{bmatrix}
+\end{split}
+\end{equation*}
+
+Therefore, $\mathbf{M}_O$ becomes obtainable, as in Equation \ref{eq:4.1obsfin}. Next the determinant of $\mathbf{M}_O$ can be found, as in Equation \ref{eq:4.1obsdet}. From this result, the system is determined to be observable. 
+
+\begin{equation}\label{eq:4.1obsfin}
+\mathbf{M}_O = \begin{bmatrix}
+4 & 0 & 0 \\
+0 & 4 & 0 \\
+0 & 0 & 4 
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}\label{eq:4.1obsdet}
+\text{det}(\mathbf{M}_O) = (4) \left| \begin{matrix}
+4 & 0  \\
+0 & 4 
+\end{matrix}\right| = 64
+\end{equation}
+
+}
+
+\end{homeworkSection}
+\begin{homeworkSection}{(f)}
+Design an observer to track the states of the system. Place all the poles of this observer $-4$ rad/s. 
+\sectionAnswer{
+The system has already been determined to be observable. The observer error equation is shown in Equation \ref{eq:4.1erreq}, where $\mathbf{K}_e = \begin{bmatrix}k_{e1} \\ k_{e2}\\ k_{e3}\end{bmatrix}$.
+\begin{equation}\label{eq:4.1erreq}
+\frac{d\mathbf{e}(t)}{dt} = (\mathbf{A}- \mathbf{K}_e \mathbf{C}) \mathbf{e}(t)
+\end{equation}
+
+Much like the state feedback vector, the observer poles that are specified should be the Eigenvalues of $\mathbf{A} - \mathbf{K}_e \mathbf{C}$. The characteristic equation for the observer is shown in Equation \ref{eq:4.1obseq}.
+
+\begin{equation}\label{eq:4.1obseq}
+\Delta_{\mathbf{K}_e}(s)= \text{det}[s\mathbf{I} - (\mathbf{A}-\mathbf{K}_e\mathbf{C})] = |s\mathbf{I} - \mathbf{A} +\mathbf{K}_e \mathbf{C}| =0
+\end{equation}
+Substituting the required matrices into Equation \ref{eq:4.1obseq} provides the values for $k_{\text{1, 2, 3}}$.
+\begin{equation*}
+\begin{split}
+\Delta_{\mathbf{K}_e}(s) &= \left|s\begin{bmatrix}1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{bmatrix}-
+\begin{bmatrix}0 & 1 & 0 \\ 0 & 0 &1\\-4 & -8 & -5\end{bmatrix}+
+\begin{bmatrix}k_{e1} \\ k_{e2}\\ k_{e3}\end{bmatrix}
+\begin{bmatrix}4 & 0 & 0\end{bmatrix}\right|\\
+&= \left| \begin{bmatrix}s & -1 & 0 \\ 0 & s & -1\\ 4 & 8 & s+5\end{bmatrix}+
+\begin{bmatrix}4k_{e1} & 0 &0 \\ 4k_{e2} & 0 & 0\\ 4k_{e3} & 0 & 0\end{bmatrix}\right|\\
+& = \left| \begin{matrix} 4k_{e1}+s & -1 & 0 \\ 4k_{e2} & s & -1\\ 4k_{e3}+4 & 8 & s+5\end{matrix}\right|\\
+& = s^3 + 5s^2 + 4k_{e1}s^2 + 8s + 20k_{e1}s + 4k_{e2}s + 32k_{e1} + 20k_{e2} + 4k_{e3} + 4\\
+& = s^3 + s^2(5 + 4k_{e1}) + s(8+20k_{e1} + 4k_{e2})  + 32k_{e1} + 20k_{e2} + 4k_{e3} + 4
+\end{split}
+\end{equation*}
+}
+\sectionAnswer{
+In order to have all of the poles at $-4$ rad/s, $s_{\text{1, 2, 3}} = -4$. With this in mind, coefficients can begin to be equated and solved for, as in Equations \ref{eq:4.1equalitygivenobs} and \ref{eq:4.1coeffobs}. 
+
+\begin{equation}\label{eq:4.1equalitygivenobs}
+\begin{split}
+s^3 + s^2(5 + 4k_{e1}) + s(8+20k_{e1} + 4k_{e2})  + 32k_{e1} + 20k_{e2} + 4k_{e3} + 4 &= (s_1 + 4)(s_2 + 4)(s_3 + 4)\\
+s^3 + s^2(5 + 4k_{e1}) + s(8+20k_{e1} + 4k_{e2})  + 32k_{e1} + 20k_{e2} + 4k_{e3} + 4 &= s^3 + 12s^2 + 48s + 64
+\end{split}
+\end{equation}
+\begin{subequations}\label{eq:4.1coeffobs}
+\begin{align}
+5+4k_{e1} &= 12\\
+\Aboxed{\therefore k_{e1} & = \sfrac{7}{4}}\\
+8+20k_{e1} + 4k_{e2} & = 48\\
+\Aboxed{\therefore k_{e2} &= 5}\\
+4+ 32k_{e1} + 20k_{e2} + 4k_{e3} & = 64\\
+\Aboxed{\therefore k_{e3} &= -24}
+\end{align}
+\end{subequations}
+
+Therefore, the observer gain matrix is shown to be Equation \ref{eq:4.1obsgainmatrix}.
+
+\begin{equation}\label{eq:4.1obsgainmatrix}
+\mathbf{K}_e = \begin{bmatrix}\sfrac{7}{4} \\ 5 \\ -24\end{bmatrix}
+\end{equation}
+
+
+}
+
+
+
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+
+\newsavebox{\codeboxo}% For storing code in a box
+\begin{lrbox}{\codeboxo}
+\begin{lstlisting}
+>> r = [-2 -1+i -1-i];
+poly(r)
+
+ans =
+
+     1     4     6     4
+\end{lstlisting}
+\end{lrbox}
+
+
+\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}]
+Consider a linear system of the form: 
+\begin{equation*}
+\begin{split}
+\frac{d\mathbf{x}(t)}{dt} = \mathbf{Ax}(t) + \mathbf{B}u(t)\\
+y(t) = \mathbf{Cx}(t) + \mathbf{D}u(t)
+\end{split}
+\end{equation*}
+\noindent
+Where,
+\begin{equation}\label{eq:4.2start}
+\mathbf{A} = \begin{bmatrix}0 & 1 & 0\\ 0 & 0 & 1\\ -4 & -1 & -2\end{bmatrix}\text{, }
+\mathbf{B} = \begin{bmatrix}0 \\ 0\\ 1\end{bmatrix}\text{, }
+\mathbf{C} = \begin{bmatrix}1 & 1 & 0\end{bmatrix}\text{ and }
+\mathbf{D} = \begin{bmatrix}0\end{bmatrix}
+\end{equation}
+\begin{homeworkSection}{(a)}
+Verify the system is controllable and observable. 
+\sectionAnswer{
+The controllability matrix,  $\mathbf{M}_c$, is given by Equation \ref{eq:4.1mc}.
+So, some matrix calculations are needed to simplify the calculation of $\mathbf{M}_c$.
+\begin{equation*}
+\begin{split}
+\mathbf{AB} &= \begin{bmatrix}0 & 1 & 0\\ 0 & 0 & 1\\ -4 & -1 & -2\end{bmatrix}
+\begin{bmatrix}
+0\\ 0 \\ 1
+\end{bmatrix}=\begin{bmatrix}
+0 \\ 1 \\ -2
+\end{bmatrix}\\
+\mathbf{A}^2 \mathbf{B} = \mathbf{A}(\mathbf{AB}) &= 
+\begin{bmatrix}0 & 1 & 0\\ 0 & 0 & 1\\ -4 & -1 & -2\end{bmatrix}
+\begin{bmatrix}
+0 \\ 1 \\ -2
+\end{bmatrix}\\
+& = \begin{bmatrix}
+1 \\ -2 \\ 3
+\end{bmatrix}
+\end{split}
+\end{equation*}
+Therefore, $\mathbf{M}_c$ becomes obtainable, as in Equation \ref{eq:4.2mcfinal}. Next, the determinant of $\mathbf{M}_c$ can be found, as in Equation \ref{eq:4.2mcdet}. From this result, the system is determined to be controllable.
+\begin{equation}\label{eq:4.2mcfinal}
+\mathbf{M}_c = \begin{bmatrix}
+0 & 0 & 1 \\
+0 & 1 & -2 \\
+1 & -2 & 3
+\end{bmatrix}
+\end{equation}
+\begin{equation}\label{eq:4.2mcdet}
+\text{det}(\mathbf{M}_c) = (1) \left| \begin{matrix}
+0 & 1  \\
+1 & -2 
+\end{matrix}\right| = -1
+\end{equation}
+
+
+The system will be observable if the observability matrix, $\mathbf{M}_O$ has full-rank. That is to say, $\text{det}(\mathbf{M_O}) \neq 0$. For this system, an observability matrix is derived as in Equation \ref{eq:4.1observmat}.
+
+So, some matrix calculations are needed to simplify the calculation of $\mathbf{M}_O$. 
+\begin{equation*}
+\begin{split}
+\mathbf{CA} &= \begin{bmatrix}1 & 1 & 0\end{bmatrix}
+\begin{bmatrix}0 & 1 & 0\\ 0 & 0 & 1\\ -4 & -1 & -2\end{bmatrix}\\
+& = \begin{bmatrix}
+0 & 1 & 1 
+\end{bmatrix}\\
+\mathbf{CA}^2 &= (\mathbf{CA})\mathbf{A} = \begin{bmatrix}
+0 & 4 & 0 
+\end{bmatrix}
+\begin{bmatrix}
+0 & 1 & 0 \\ 0 & 0 & 1 \\  -4 & -8 & -5 
+\end{bmatrix}\\
+& = \begin{bmatrix}
+-4 & -1 & -1
+\end{bmatrix}
+\end{split}
+\end{equation*}
+
+Therefore, $\mathbf{M}_O$ becomes obtainable, as in Equation \ref{eq:4.2obsfin}. Next the determinant of $\mathbf{M}_O$ can be found, as in Equation \ref{eq:4.2obsdet}. From this result, the system is determined to be observable. 
+
+\begin{equation}\label{eq:4.2obsfin}
+\mathbf{M}_O = \begin{bmatrix}
+1 & 1 & 0 \\
+0 & 1 & 1 \\
+-4 & -1 & -1 
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}\label{eq:4.2obsdet}
+\text{det}(\mathbf{M}_O) = (1) \left| \begin{matrix}
+1 & 1  \\
+1 & -1 
+\end{matrix}\right| - (1)
+\left| \begin{matrix}
+0 & 1  \\
+-4 & -1 
+\end{matrix}\right| = -4
+\end{equation}
+
+
+
+}
+
+\end{homeworkSection}
+\newpage
+\begin{homeworkSection}{(b)}
+Design a state feedback vector to place the poles of the system at $s_1 = -2$ and $s_{\text{2, 3}} = -1 \pm j1$.
+\sectionAnswer{
+First, it would be sensible to obtain a polynomial for the desired roots. This can be done by equating $s_{\text{1, 2, 3}}$ to 0 and finding the product of these equations. 
+\begin{equation}\label{eq:4.2charr}
+\begin{split}
+\Delta_{r}(s) &= (s+2)(s+1+i)(s+1-i)\\
+& = s^3 + 4s^2 + 6s + 4
+\end{split}
+\end{equation}
+
+This can again be verified with MATLAB. 
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+\begin{center}
+\usebox{\codeboxo}%
+\end{center}
+%%%%%%%%%%%%%% CODE %%%%%%%%%%%%%%%
+The system has already been shown to be controllable, so next, the characteristic polynomial of $\mathbf{A}$ can be found by using Equation \ref{eq:4.1charpolymod}.
+\begin{equation*}
+\begin{split}
+\Delta_K(s) &= \left| s \begin{bmatrix}
+1 & 0 & 0\\ 0 & 1 & 0 \\ 0 & 0 & 1
+\end{bmatrix}
+-
+\begin{bmatrix}0 & 1 & 0\\ 0 & 0 & 1\\ -4 & -1 & -2\end{bmatrix}+
+\begin{bmatrix}
+0\\ 0 \\ 1
+\end{bmatrix}
+\begin{bmatrix}
+k_1 & k_2 & k_3
+\end{bmatrix}\right| \\
+&= \left| \begin{bmatrix}
+s & -1 & 0 \\
+0 & s & -1 \\
+4 & 1 & s+2 
+\end{bmatrix}+
+\begin{bmatrix}
+0 & 0 & 0 \\ 
+0 & 0 & 0 \\
+k_1 & k_2 & k_3
+\end{bmatrix}\right| \\
+&= \left| \begin{matrix}
+s & -1 & 0 \\
+0 & s & -1 \\
+k_1 + 4 & k_2 + 1 & k_3 + s+2 
+\end{matrix}
+\right| \\
+& = s [s(k_3 + s +2) + (k_2+1)] + (k_1+4)\\
+& = s^3 + k_3s^2 + 2s^2 + k_2s + s + k_1 + 4\\
+& = s^3 + s^2 (2+k_3) + s(1 +k_2) + 4 + k_1
+\end{split}
+\end{equation*}
+This equation can now be equated to Equation \ref{eq:4.2charr} as in Equation \ref{eq:4.2equating}.
+\begin{equation}\label{eq:4.2equating}
+s^3 + s^2 (2+k_3) + s(1 +k_2) + 4 + k_1 = s^3 + 4s^2 + 6s + 4
+\end{equation}
+It is now possible to solve for $k_1$, $k_2$ and $k_3$ as in Equation \ref{eq:4.2coeff}.
+\begin{subequations}\label{eq:4.2coeff}
+\begin{align}
+2+k_3 &= 4\\
+\Aboxed{\therefore k_3 & = 2}\\
+1+k_2 & = 6\\
+\Aboxed{\therefore k_2 &= 5}\\
+4+k_1 & = 4\\
+\Aboxed{\therefore k_1 &= 0}
+\end{align}
+\end{subequations}
+Hence, $\mathbf{K}$ can be populated with its respective values of $k$, as obtained in Equation \ref{eq:4.2coeff}.
+\begin{equation*}
+\mathbf{K} = \begin{bmatrix}
+0 & 5 & 2
+\end{bmatrix}
+\end{equation*}
+}
+
+\end{homeworkSection}
+
+\begin{homeworkSection}{(c)}
+Design an observer to track the states of the system. Place all the poles of the observer at $s_{\text{1, 2, 3}} = -1 $.
+\sectionAnswer{
+Again, the system has already been determined to be observable. The observer equation is shown in Equation \ref{eq:4.1erreq}, where $\mathbf{K}_e = \begin{bmatrix}k_{e1} \\ k_{e2}\\ k_{e3}\end{bmatrix}$.
+Much like the state feedback vector, the observer poles that are specified to us (i.e. $s_{\text{1, 2, 3}} = -1$) should be the Eigenvalues of $\mathbf{A} - \mathbf{K}_e\mathbf{C}$. The characteristic equation for the observer is shown in Equation \ref{eq:4.1obseq}.
+\begin{equation*}
+\begin{split}
+\Delta_{\mathbf{K}_e}(s) &= \left|s\begin{bmatrix}1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{bmatrix}-
+\begin{bmatrix}0 & 1 & 0 \\ 0 & 0 &1\\-4 & -1 & -2\end{bmatrix}+
+\begin{bmatrix}k_{e1} \\ k_{e2}\\ k_{e3}\end{bmatrix}
+\begin{bmatrix}1 & 1 & 0\end{bmatrix}\right|\\
+&= \left| \begin{bmatrix}s & -1 & 0 \\ 0 & s & -1\\ 4 & 1 & s+2\end{bmatrix}+
+\begin{bmatrix}k_{e1} & k_{e1} &0 \\ k_{e2} & k_{e2} & 0\\ k_{e3} & k_{e3} & 0\end{bmatrix}\right|\\
+& = \left| \begin{matrix} k_{e1}+s & k_{e1}-1 & 0 \\ k_{e2} & k_{e2}+s & -1\\ k_{e3}+4 & k_{e3}+1 & s+2\end{matrix}\right|\\
+& = s^3 + 2s^2 + k_{e1}s^2+ k_{e2}s^2 + s + 2k_{e1}s + 3k_{e2}s + k_{e3}s - 3k_{e1} + 2k_{e2} + k_{e3} + 4\\
+& = s^3 + s^2(2 + k_{e1}+k_{e2}) + s(1+2k_{e1} + 3k_{e2}+k_{e3})  + k_{e3} + 2k_{e2} - 3k_{e1} +4
+\end{split}
+\end{equation*}
+In order to have all of the observer poles at $-1$, one must equate the above equation with $(s+1)(s+1)(s+1) = s^3 + 3s^2 + 3s +1$. 
+\begin{equation*}
+ s^3 + s^2(2 + k_{e1}+k_{e2}) + s(1+2k_{e1} + 3k_{e2}+k_{e3})  + k_{e3} + 2k_{e2} - 3k_{e1} +4 = s^3 + 3s^2 + 3s +1
+\end{equation*}
+From here, it is simple to compare the coefficients and find a value for $k_{e1}$, $k_{e2}$ and $k_{e3}$ as in Equation \ref{eq:4.2coeffobs}. 
+\begin{subequations}\label{eq:4.2coeffobs}
+\begin{align}
+2+k_{e1}+ k_{e2} &= 3\\
+\Aboxed{\therefore k_{e1} & = 1 - k_{e2}}\\
+%%%
+1+2 - 2k_{e2} + 3k_{e2} + k_{e3} & = 3\\
+3 + k_{e2} + k_{e3} & = 3\\
+\Aboxed{\therefore k_{e2} &= -k_{e3}}\\
+%%%
+4 - 3(1 - k_{e2}) - 2k_{e3} + k_{e3} & = 1\\
+4 - 3(1 + k_{e3}) - 2k_{e3} + k_{e3} & = 1\\
+1-4k_{e3} & = 1\\
+\Aboxed{\therefore k_{e3} &= 0\text{, } k_{e2} = 0\text{, }k_{e1} = 1}
+\end{align}
+\end{subequations}
+
+Hence, the observer gain matrix can be populated with its respective values of $k$ from Equation \ref{eq:4.2coeffobs}, leaving a rather disappointing result (for the work required\dots) as in Equation \ref{eq:4.2finallydone}.
+
+\begin{equation}\label{eq:4.2finallydone}
+\mathbf{K}_e = 
+\begin{bmatrix}
+1 \\ 0 \\0 
+\end{bmatrix}
+\end{equation}
+
+}
+
+\end{homeworkSection}
+
+
+\end{homeworkProblem}
+
+%
+%\newpage
+%
+%\section{Annex}
+%\begin{homeworkProblem}[Feedback Form (Coursework: Automatic Control)]
+%
+%
+%\begin{tabularx}{\textwidth}{|X|X|X|X|}
+%\hline
+%\textbf{Name:}                                      & Jamie Lake                               & \textbf{Student ID:}                                         & 1433172                                      \\ \hline
+%\multicolumn{2}{|>{\hsize=2\hsize}X|}{\textbf{Feedback focus:}}                                                 & \multicolumn{2}{>{\hsize=2\hsize}X|}{Anything/everything I did wrong, if possible. The state-space stuff is the most alien to me, especially design by state-space... so this, if anything.}                                \\ \hline
+%\multicolumn{2}{|>{\hsize=2\hsize}X|}{\textbf{Comments/Self-Evaluation/Difficulties:}}                          & \multicolumn{2}{>{\hsize=2\hsize}X|}{I found this coursework quite enjoyable to complete. It also gave me a good opportunity to practice \LaTeX.}                         \\ \hline \hline
+%\multicolumn{4}{|>{\hsize=4\hsize}X|}{\textbf{Learning Outcome 1: Design continuous control systems given specifications using frequency response}}                                                                  \\ \hline
+%\textbf{Fully Met}                                  & \sout{Met}                                      &\sout{Partially Met}                                       & \sout{Not Met}                                      \\ \hline
+%\textbf{Comments:}                                  & \multicolumn{3}{>{\hsize=3\hsize}X|}{I am pretty confident with this stuff. It was similar to the things we have done in the previous control module.}                                                                                                                         \\ \hline \hline
+%\multicolumn{4}{|>{\hsize=4\hsize}X|}{\textbf{Learning Outcome 2: Use MATLAB to plot time-domain and frequency responses of a system}}                                                                               \\ \hline
+%\textbf{Fully Met}                                  & \sout{Met}                                      & \sout{Partially Met}                                       & \sout{Not Met}                                      \\ \hline
+%\textbf{Comments:}                                     & \multicolumn{3}{>{\hsize=3\hsize}X|}{I am quite confident with MATLAB and doing this CW actually encouraged me to use MATLAB for my EN3100 project.}                                                                                                                   \\ \hline \hline
+%\multicolumn{4}{|>{\hsize=4\hsize}X|}{\textbf{Learning Outcome 3: Obtain state-space representations of dynamic systems and understand the relationship between state-space representations and transfer functions}} \\ \hline
+%\textbf{Fully Met}                                  & \sout{Met}                                      & \sout{Partially Met}                                       & \sout{Not Met}                                      \\ \hline
+%\textbf{Comments:}                                  & \multicolumn{3}{>{\hsize=3\hsize}X|}{This stuff is a little bit alien to me. I can now remember the controllable Canonical state-space representation, but no others. There was no requirement to do a particular SS representation, so I just defaulted to the controllable form, which in hindsight was not intelligent.}                                                                                                                         \\ \hline \hline
+%\multicolumn{4}{|>{\hsize=4\hsize}X|}{\textbf{Learning Outcome 4: Analyse state-space systems}}                                                                                                                      \\ \hline
+%\sout{Fully Met}                                  &\textbf{Met}                                      & \sout{Partially Met}                                       & \sout{Not Met}                                      \\ \hline
+%\textbf{Comments:}                                  & \multicolumn{3}{>{\hsize=3\hsize}X|}{A little bit unfamiliar still, but I feel more confident after completing this CW. I've had a look at some tutorial questions, and I'm pretty sure I can do these too.}                                                                                                                         \\ \hline \hline
+%\multicolumn{4}{|>{\hsize=4\hsize}X|}{\textbf{Learning Outcome 5: Design in state-space (pole placement and observers)}}                                                                                             \\ \hline
+%\sout{Fully Met}                                  & \textbf{Met}                                      & \sout{Partially Met}                                       & \sout{Not Met}                                      \\ \hline
+%\textbf{Comments:}                                  & \multicolumn{3}{>{\hsize=3\hsize}X|}{I am still not sure how to calculate the amplification factor for the input pre-scaler. Just mentioned this to you in lecture, I'm not sure why I didn't think of using the FVT\dots}                                                                                                                         \\ \hline
+%\end{tabularx}
+%
+%\end{homeworkProblem}
+
+
+
+
+\end{spacing}
+\end{document}

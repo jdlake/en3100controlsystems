@@ -1,0 +1,35 @@
+\contentsline {section}{\numberline {1}Section 1 - Control System Design using Frequency Response}{3}
+\contentsline {subsection}{\numberline {1.1}Exercise \#1}{3}
+\contentsline {subsubsection}{\numberline {1.1.1}(a)}{3}
+\contentsline {subsubsection}{\numberline {1.1.2}(b)}{5}
+\contentsline {subsubsection}{\numberline {1.1.3}(c)}{7}
+\contentsline {subsubsection}{\numberline {1.1.4}(d)}{8}
+\contentsline {subsubsection}{\numberline {1.1.5}(e)}{8}
+\contentsline {subsubsection}{\numberline {1.1.6}(f)}{8}
+\contentsline {subsection}{\numberline {1.2}Exercise \#2}{10}
+\contentsline {subsubsection}{\numberline {1.2.1}(a)}{10}
+\contentsline {subsubsection}{\numberline {1.2.2}(b)}{10}
+\contentsline {subsubsection}{\numberline {1.2.3}(c)}{14}
+\contentsline {subsubsection}{\numberline {1.2.4}(d)}{18}
+\contentsline {subsubsection}{\numberline {1.2.5}(e)}{18}
+\contentsline {subsubsection}{\numberline {1.2.6}(f)}{18}
+\contentsline {section}{\numberline {2}Section 2 - State-space Modelling}{19}
+\contentsline {subsection}{\numberline {2.1}Exercise \#3}{19}
+\contentsline {subsubsection}{\numberline {2.1.1}(a)}{19}
+\contentsline {subsubsection}{\numberline {2.1.2}(b)}{19}
+\contentsline {subsection}{\numberline {2.2}Exercise \#4}{20}
+\contentsline {subsection}{\numberline {2.3}Exercise \#5}{21}
+\contentsline {subsection}{\numberline {2.4}Exercise \#6}{22}
+\contentsline {subsection}{\numberline {2.5}Exercise \#7}{23}
+\contentsline {section}{\numberline {3}Section 3 - Design in State-Space}{25}
+\contentsline {subsection}{\numberline {3.1}Exercise \#8}{25}
+\contentsline {subsubsection}{\numberline {3.1.1}(a)}{25}
+\contentsline {subsubsection}{\numberline {3.1.2}(b)}{26}
+\contentsline {subsubsection}{\numberline {3.1.3}(c)}{27}
+\contentsline {subsubsection}{\numberline {3.1.4}(d)}{29}
+\contentsline {subsubsection}{\numberline {3.1.5}(e)}{30}
+\contentsline {subsubsection}{\numberline {3.1.6}(f)}{31}
+\contentsline {subsection}{\numberline {3.2}Exercise \#9}{32}
+\contentsline {subsubsection}{\numberline {3.2.1}(a)}{32}
+\contentsline {subsubsection}{\numberline {3.2.2}(b)}{34}
+\contentsline {subsubsection}{\numberline {3.2.3}(c)}{35}
